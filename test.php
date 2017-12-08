@@ -10,7 +10,7 @@ require('middleware/CSRFMiddleware.php');
 //header("Location: index.html");
 //$path = '/middleware/TestMiddleware';
 //echo __DIR__;
-$config = new MiddlewareConfig($_SERVER, $COOKIE);
+$config = new MiddlewareConfig($_SERVER, $_COOKIE);
 
 $testMiddleware=new TestMiddleware();
 $csrfMiddleware = new CSRFMddleware();
@@ -31,7 +31,7 @@ $config->apply();
 // }
 
 
-echo serialize($_SERVER);
+//echo serialize($_SERVER);
 //echo($f->consider());
 //echo($_GET["content"]);
 //echo serialize($_REQUEST);

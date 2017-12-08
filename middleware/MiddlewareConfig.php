@@ -14,9 +14,8 @@ class MiddlewareConfig {
         array_push($this->middlewares, $middleware);
     }
     function apply(){
-        foreach($this->middlewares as $m){
-            $m->setParams($this->server, $this->cookies);
-            if($m->apply("something")["next"] == false)
+        foreach($this->middlewares as $m){            
+            if($m->apply($this->server, $this->cookies)["next"] == false)
                 break;
         }
     }
