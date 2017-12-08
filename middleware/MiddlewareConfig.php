@@ -1,5 +1,5 @@
 <?php
-include'MiddlewareBase.php';
+include 'IMiddlewareBase.php';
 class MiddlewareConfig {
     private $server;
     private $cookies;

@@ -1,6 +1,6 @@
 <?php
 
-class TestMiddleware implements MiddlewareBase {
+class TestMiddleware implements IMiddlewareBase {
     private $AUTH_COOKIE = "auth";
     private $server;
     private $cookies;

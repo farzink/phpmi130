@@ -1,5 +1,5 @@
 <?php
-interface MiddlewareBase {
+interface IMiddlewareBase {
     public function apply($server, $cookies);    
 }
 ?>

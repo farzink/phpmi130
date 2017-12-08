@@ -2,6 +2,12 @@
 
 include 'lib.php';
 require('middleware/Init.php');
+include 'data/DataAccess.php';
+
+//include 'data/DBConfiguration.php';
+include 'repository/ProfileRepository.php';
+
+
 
 
 //$t = new Test();
@@ -10,7 +16,13 @@ require('middleware/Init.php');
 //$path = '/middleware/TestMiddleware';
 //echo __DIR__;
 
-$init = new Init($_SERVER, $_COOKIE);
+//$init = new Init($_SERVER, $_COOKIE);
+
+
+$data = new DataAccess();
+$repo = new ProfileRepository($data);
+
+echo($repo->getById());
 
 
 

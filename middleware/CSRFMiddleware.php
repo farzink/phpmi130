@@ -1,6 +1,6 @@
 <?php
 
-class CSRFMddleware implements MiddlewareBase {
+class CSRFMddleware implements IMiddlewareBase {
     private $server;
     private $cookies;
     public function apply($server, $cookies){
