@@ -1,24 +1,18 @@
 <?php
 
 include 'lib.php';
-require('middleware/MiddlewareConfig.php');
-require('middleware/TestMiddleware.php');
-require('middleware/CSRFMiddleware.php');
+require('middleware/Init.php');
+
 
 //$t = new Test();
 //echo $t->aMemberFunc();
 //header("Location: index.html");
 //$path = '/middleware/TestMiddleware';
 //echo __DIR__;
-$config = new MiddlewareConfig($_SERVER, $_COOKIE);
 
-$testMiddleware=new TestMiddleware();
-$csrfMiddleware = new CSRFMddleware();
+$init = new Init($_SERVER, $_COOKIE);
 
 
-$config->consider($testMiddleware);
-$config->consider($csrfMiddleware);
-$config->apply();
 
 // $headers = array();
 // foreach($_SERVER as $key => $value) {
