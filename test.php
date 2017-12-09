@@ -22,7 +22,7 @@ include 'repository/ProfileRepository.php';
 $data = new DataAccess();
 $repo = new ProfileRepository($data);
 
-echo($repo->getById());
+echo(serialize($repo->getById(1)));
 
 
 
