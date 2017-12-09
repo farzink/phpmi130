@@ -8,6 +8,7 @@ require_once('htmlhelper/TagHelper.php');
 
 //include 'data/DBConfiguration.php';
 include 'repository/ProfileRepository.php';
+require_once('SimpleMVCNavigator.php');
 
 $requestedRoute = $_GET["content"];
 
@@ -26,18 +27,23 @@ $requestedRoute = $_GET["content"];
 $data = new DataAccess();
 $repo = new ProfileRepository($data);
 
-echo(serialize($repo->getById(1)));
+//echo(serialize($repo->getById(1)));
 
 
 
 
 //MVC route test
 $html = new TagHelper("");
-$router = new Router();
+$classDefinition = Router::class;
+$router = new $classDefinition();
 $router->analyzeRoute($requestedRoute);
 
 $html->div($router->getCurrentController(), "style = 'background-color: red'");
-echo($router->getCurrentAction());
+//echo($router->getCurrentAction());
+//echo(Router::class);
+
+$navigator = new SimpleMVCNavigator();
+$navigator->navigate($router->getCurrentController());
 
 
 // $headers = array();
