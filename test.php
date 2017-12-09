@@ -1,13 +1,15 @@
 <?php
 
-include 'lib.php';
+
 require('middleware/Init.php');
 include 'data/DataAccess.php';
+require_once('Router.php');
+require_once('htmlhelper/TagHelper.php');
 
 //include 'data/DBConfiguration.php';
 include 'repository/ProfileRepository.php';
 
-
+$requestedRoute = $_GET["content"];
 
 
 //$t = new Test();
@@ -19,11 +21,23 @@ include 'repository/ProfileRepository.php';
 //$init = new Init($_SERVER, $_COOKIE);
 
 
+//repo test
+
 $data = new DataAccess();
 $repo = new ProfileRepository($data);
 
 echo(serialize($repo->getById(1)));
 
+
+
+
+//MVC route test
+$html = new TagHelper("");
+$router = new Router();
+$router->analyzeRoute($requestedRoute);
+
+$html->div($router->getCurrentController(), "style = 'background-color: red'");
+echo($router->getCurrentAction());
 
 
 // $headers = array();
