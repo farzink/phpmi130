@@ -4,6 +4,7 @@
 require_once "../DataAccess.php";
 require_once "../DBConfiguration.php";
 require_once "ProfileMigration.php";
+require_once "AuthTempMigration.php";
 
 
 
@@ -37,6 +38,13 @@ try {
     $counter = 1;
     $table = ProfileMigration::$tableName;
     $command = ProfileMigration::migrate();    
+    if($dataAccess->executeCommand($command) == true) {
+        pl("{$counter}. {$table} table is susccessfully created.");
+        $counter++;
+    }
+
+    $command = AuthTempMigration::migrate();        
+    $table = AuthTempMigration::$tableName;
     if($dataAccess->executeCommand($command) == true) {
         pl("{$counter}. {$table} table is susccessfully created.");
         $counter++;
