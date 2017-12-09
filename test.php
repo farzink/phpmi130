@@ -43,7 +43,7 @@ $html->div($router->getCurrentController(), "style = 'background-color: red'");
 //echo(Router::class);
 
 $navigator = new SimpleMVCNavigator();
-$navigator->navigate($router->getCurrentController());
+$navigator->navigate($router->getCurrentController(), $router->getCurrentAction());
 
 
 // $headers = array();
