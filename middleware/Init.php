@@ -6,10 +6,10 @@ require 'CSRFMiddleware.php';
 
 class Init
 {
-    public function init($server, $cookies)
+    public function init(&$server, &$cookies)
     {
         $config = new MiddlewareConfig($server, $cookies);
-
+        
         $testMiddleware = new TestMiddleware();
         $csrfMiddleware = new CSRFMddleware();
 

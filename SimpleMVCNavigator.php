@@ -7,6 +7,8 @@ class SimpleMVCNavigator {
     }
     public function navigate($controller="home", $action="index") {
         //echo($this->discoverController($controller));
+        $controller = ($controller == "") ? "home" : $controller;
+        $action = ($action ==  "") ? "index" : $action;
         try{
         if($this->discoverController($controller)){
             $targetController = require_once("controller/{$controller}Controller.php");

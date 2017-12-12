@@ -4,9 +4,11 @@ class TestMiddleware implements IMiddlewareBase {
     private $AUTH_COOKIE = "auth";
     private $server;
     private $cookies;
-    public function apply($server, $cookies){
+    public function apply(&$server, &$cookies){
         $this->server = $server;
         $this->cookies = $cookies;
+        $server['user'] = NULL;
+        
         //echo($request["HTTP_Authorize"]);
         // $headers = array();
         // foreach($request as $key => $value) {

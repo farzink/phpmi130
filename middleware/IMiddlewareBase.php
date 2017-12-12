@@ -1,5 +1,5 @@
 <?php
 interface IMiddlewareBase {
-    public function apply($server, $cookies);    
+    public function apply(&$server, &$cookies);    
 }
 ?>

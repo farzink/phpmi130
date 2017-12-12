@@ -19,7 +19,7 @@ $requestedRoute = $_GET["content"];
 //$path = '/middleware/TestMiddleware';
 //echo __DIR__;
 
-//$init = new Init($_SERVER, $_COOKIE);
+$init = new Init($_SERVER, $_COOKIE);
 
 
 //repo test
@@ -56,7 +56,7 @@ $navigator->navigate($router->getCurrentController(), $router->getCurrentAction(
 //     echo serialize($headers);
 // }
 
-
+echo(serialize($_SERVER));
 //echo serialize($_SERVER);
 //echo($f->consider());
 //echo($_GET["content"]);
