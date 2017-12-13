@@ -6,7 +6,7 @@ class HomeController extends BaseController {
     }
     public function index(){
         $this->view("something");
-        echo "index";
+        //echo "index";
     }
     public function index1(){
         echo "index 1";

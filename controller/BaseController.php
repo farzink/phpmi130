@@ -6,7 +6,9 @@ class BaseController {
     public function __construct(){
         $this->viewEngine = new MI130ViewEngine();
     }
-    protected function view($context){
-        echo($context);
+    protected function view($model = NUll){
+        $controller = debug_backtrace()[1]['class'];
+        $action = debug_backtrace()[1]['function'];                     
+        echo($this->viewEngine->cook($controller, $action, $model));
     }
 }

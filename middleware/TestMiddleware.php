@@ -20,7 +20,7 @@ class TestMiddleware implements IMiddlewareBase {
         //     echo($headers);
         // }
         if(!isset($this->cookie[$this->AUTH_COOKIE])){
-            echo "unauthorize...";
+            //echo "unauthorize...";
         }
         return [
             "data" => "data",

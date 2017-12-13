@@ -4,7 +4,7 @@ class Router {
     private $action;
     public function analyzeRoute($route){
         $explodedRoute = explode("/", $route);
-        //todo: length needs to be check
+        //todo: length needs to be checked
         if(count($explodedRoute) > 0){
         $this->controller = $explodedRoute[0];
         }else{

@@ -9,7 +9,7 @@ class CSRFMddleware implements IMiddlewareBase {
         //the actual process related
         //to this specific
         //middleware
-        echo("csrf");
+        //echo("csrf");
         return [
             "data" => "data",
             "next" => true

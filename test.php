@@ -38,7 +38,7 @@ $classDefinition = Router::class;
 $router = new $classDefinition();
 $router->analyzeRoute($requestedRoute);
 
-$html->div($router->getCurrentController(), "style = 'background-color: red'");
+//$html->div($router->getCurrentController(), "style = 'background-color: red'");
 //echo($router->getCurrentAction());
 //echo(Router::class);
 
@@ -56,7 +56,7 @@ $navigator->navigate($router->getCurrentController(), $router->getCurrentAction(
 //     echo serialize($headers);
 // }
 
-echo(serialize($_SERVER));
+//echo(serialize($_SERVER));
 //echo serialize($_SERVER);
 //echo($f->consider());
 //echo($_GET["content"]);
