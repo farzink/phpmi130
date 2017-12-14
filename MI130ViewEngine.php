@@ -31,6 +31,9 @@ class MI130ViewEngine {
     function prepareJavaScripts() {
 
     }
+    function preparelinks(){
+        $this->content = preg_replace(MI130ViewEngineConfig::$linkPattern, "/".MI130ViewEngineConfig::$base."/"."$1", $this->content);
+    }
     function prepareBody($controller, $action, $model=NULL){
         try{
         $bodyTag = MI130ViewEngineConfig::$bodyTag;
@@ -38,15 +41,26 @@ class MI130ViewEngine {
         $targetPath = "{$this->viewPath}/{$controller}/{$action}.{$this->viewExtension}"; 
         
         $targetContent = file_get_contents($targetPath, true);
-        $modeledContent = $this->modelInjector($targetContent, $model);        
-        $this->content = str_replace($bodyTag, $modeledContent, $this->content);
+        //$modeledContent = $this->modelInjector($targetContent, $model);        
+        //$this->modelInjector($targetContent, $model);        
+        
+        $this->content = str_replace($bodyTag, $targetContent, $this->content);
+        $this->modelInjector($model);        
+        
+
         }
         catch(Exception $ex){
             echo("no such view file, check if your target view exists");
         }
     }
-    function modelInjector(&$content, &$model){        
-        return $content;
+    function modelInjector(&$model){           
+        $this->content = preg_replace_callback(MI130ViewEngineConfig::$modelPattern, function(array $m) use($model){
+            return $model[$m[1]];
+        }
+        , $this->content);            
+    }
+    function replace($model){
+        echo($model);
     }
     public function cook($controller, $action, $model = NULL){
         $this->viewPath = MI130ViewEngineConfig::$viewPath;
@@ -56,6 +70,7 @@ class MI130ViewEngine {
         $this->prepareHeader();
         $this->prepareFooter();
         $this->prepareBody($controller, $action, $model);
+        $this->preparelinks();
         return $this->content;
     }
 }

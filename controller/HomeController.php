@@ -3,15 +3,12 @@ require_once("BaseController.php");
 class HomeController extends BaseController {
     public function __construct(){
         parent::__construct();
-    }
-    /**
-     * @param secure
-     *
-     * @return void
-     */
+    }    
     public function index(){
-        $this->view("something");
-        //echo "index";
+        $this->view([
+            "id" => "100",
+            "name" => "someone"
+        ]);        
     }    
     public function index1(){
         echo "index 1";

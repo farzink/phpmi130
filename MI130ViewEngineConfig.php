@@ -9,4 +9,11 @@ class MI130ViewEngineConfig {
     public static $header = "shared/header.mi130";
     public static $footer = "shared/footer.mi130";
     public static $viewExtension = "mi130";
+    public static $base = "phpmi130";
+
+
+
+    //patterns
+    public static $linkPattern = "/link:\[(?<link>.*)\]/";
+    public static $modelPattern = "/model:\[(.*)\]/";
 }

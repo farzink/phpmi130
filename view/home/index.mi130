@@ -1,3 +1,98 @@
-<h1>
-hi there
-</h1>
+model:[id]
+model:[name]
+
+<h4>
+    Followings are implemented
+</h4>
+
+
+<br />
+<br />
+
+<h6>
+    Contents:
+</h6>
+<div>
+    <ul>
+        <li>
+            Home
+        </li>
+        <li>
+            Register new account
+        </li>
+        <li>
+            Login
+        </li>
+        <li>
+            Account Page (after Login)
+        </li>
+        <li>
+            Logout
+        </li>
+    </ul>
+</div>
+
+
+
+<h6>
+    Functions:
+</h6>
+<div>
+    <li>
+        Confirm Email address
+    </li>
+    <li>
+        Resend activation link
+    </li>
+    <li>
+        Forgot Password --> Reset Password
+    </li>
+    <li>
+        Change Password
+    </li>
+    <li>
+        Change Mail
+    </li>
+    <li>
+        Delete Account
+    </li>
+</div>
+
+<br />
+<br />
+
+<h6>
+    Features:
+</h6>
+<div>
+    <li>
+        Limited number of login attempts (Captcha integration)
+    </li>
+    <li>
+        Token system for changing Email address
+    </li>
+    <li>
+        Token system for confirming Email address
+    </li>
+    <li>
+        Token system for deleting account
+    </li>
+    <li>
+        Secure Session with Cookies and database
+    </li>
+    <li>
+        Timeout for Session
+    </li>
+    <li>
+        Timeout for Tokens
+    </li>
+    <li>
+        Secure Storage of passwords with hash and salt
+    </li>
+    <li>
+        XSS protection
+    </li>
+    <li>
+        CSRF protection
+    </li>
+</div>
