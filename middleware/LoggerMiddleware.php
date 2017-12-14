@@ -1,14 +1,28 @@
 <?php
+include_once("./utility/CommentExtractor.php");
 
-class TestMiddleware implements IMiddlewareBase {
+class LoggerMiddleware implements IMiddlewareBase {
     private $AUTH_COOKIE = "auth";
     private $server;
     private $cookies;
-    public function apply(&$server, &$cookies){
+    public function apply(&$router, &$server, &$cookies){
         $this->server = $server;
         $this->cookies = $cookies;
         $server['user'] = NULL;
-        
+
+        $controller =  "{$router->getCurrentController()}controller";
+        $ce = new CommentExtractor();
+        $doc = $ce->getParam("./controller", $controller);
+        $annotaion = $doc->getMethod($router->getCurrentAction())->getDocComment();
+        if(strpos($annotaion, "secure") !== false || strpos($annotaion, "secured") !== false){
+            echo("secured");
+        }
+        else{
+            echo("not secured");
+        }
+
+
+
         //echo($request["HTTP_Authorize"]);
         // $headers = array();
         // foreach($request as $key => $value) {
@@ -32,3 +46,4 @@ class TestMiddleware implements IMiddlewareBase {
  }
 }
 ?>
+

@@ -1,19 +1,19 @@
 <?php
 
 require 'MiddlewareConfig.php';
-require 'TestMiddleware.php';
+require 'AuthMiddleware.php';
 require 'CSRFMiddleware.php';
 
 class Init
 {
-    public function init(&$server, &$cookies)
+    public function init(&$router, &$server, &$cookies)
     {
-        $config = new MiddlewareConfig($server, $cookies);
+        $config = new MiddlewareConfig($router, $server, $cookies);
         
-        $testMiddleware = new TestMiddleware();
+        $authMiddleware = new AuthMiddleware();
         $csrfMiddleware = new CSRFMddleware();
 
-        $config->consider($testMiddleware);
+        $config->consider($authMiddleware);
         $config->consider($csrfMiddleware);
         $config->apply();
     }

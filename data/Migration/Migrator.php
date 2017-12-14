@@ -5,8 +5,17 @@ require_once "../DataAccess.php";
 require_once "../DBConfiguration.php";
 require_once "ProfileMigration.php";
 require_once "AuthTempMigration.php";
+require_once "UserLogMigration.php";
+
+$u = "";
+$p = "";
 
 
+if($argc > 2)
+{
+$u = $argv[1];
+$p = $argv[2];
+}
 
 function pl($message){
     print($message);
@@ -17,7 +26,8 @@ function pld(){
 }
 
 
-
+if($u === "user" && $p === "password")
+{
 
 $database = DBConfiguration::$database;
 try {
@@ -50,6 +60,13 @@ try {
         $counter++;
     }
 
+    $command = UserLogMigration::migrate();        
+    $table = UserLogMigration::$tableName;
+    if($dataAccess->executeCommand($command) == true) {
+        pl("{$counter}. {$table} table is susccessfully created.");
+        $counter++;
+    }
+
 
 
     pld();
@@ -57,4 +74,6 @@ try {
 } catch (Exception $ex) {
     //log("error while creating database, make sure the database {$database} does not exist");
     pl($ex);
+}
+
 }
