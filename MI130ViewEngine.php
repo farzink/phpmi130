@@ -59,6 +59,12 @@ class MI130ViewEngine {
         }
         , $this->content);            
     }
+    function runExecutables(){
+        $this->content = preg_replace_callback(MI130ViewEngineConfig::$executablePattern, function(array $m){
+            return eval($m[1]);
+        }
+        , $this->content);            
+    }
     function replace($model){
         echo($model);
     }
@@ -71,6 +77,7 @@ class MI130ViewEngine {
         $this->prepareFooter();
         $this->prepareBody($controller, $action, $model);
         $this->preparelinks();
+        $this->runExecutables();
         return $this->content;
     }
 }
