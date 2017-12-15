@@ -6,6 +6,8 @@ require_once "../DBConfiguration.php";
 require_once "ProfileMigration.php";
 require_once "AuthTempMigration.php";
 require_once "UserLogMigration.php";
+require_once "RoleMigration.php";
+require_once('../../utility/AuthHelper.php');
 
 $u = "";
 $p = "";
@@ -25,6 +27,20 @@ function pld(){
     pl("---------------------------------------------------------------");
 }
 
+
+function seed(){
+    $dataAccess = new DataAccess();
+    $command = "INSERT INTO roles (role, rank) VALUES ('admin', 100)";
+
+
+    $dataAccess->executeCommand($command);
+
+    $command = "INSERT INTO profiles (firstname, lastname, email, password, phone, roleId)
+                VALUES ('farzin', 'k', 'farzin@somewhere.fart','". AuthHelper::hashPassword("12343sdfsdfs") ."', '3423345345', 1)";
+    
+    $dataAccess->executeCommand($command);
+}
+    
 
 if($u === "user" && $p === "password")
 {
@@ -46,6 +62,18 @@ try {
 
     pld();
     $counter = 1;
+
+
+
+    $command = RoleMigration::migrate();        
+    $table = RoleMigration::$tableName;
+    if($dataAccess->executeCommand($command) == true) {
+        pl("{$counter}. {$table} table is susccessfully created.");
+        $counter++;
+    }
+
+
+
     $table = ProfileMigration::$tableName;
     $command = ProfileMigration::migrate();    
     if($dataAccess->executeCommand($command) == true) {
@@ -67,7 +95,9 @@ try {
         $counter++;
     }
 
+    
 
+    seed();
 
     pld();
 

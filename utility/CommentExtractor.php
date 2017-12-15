@@ -5,4 +5,8 @@ class CommentExtractor {
         $doc = new ReflectionClass($class);
         return $doc;
     }
+    public function getParambyClass($class){        
+        $doc = new ReflectionClass($class);
+        return $doc;
+    }
 }

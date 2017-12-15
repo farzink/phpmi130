@@ -10,13 +10,15 @@ class ProfileMigration{
         firstname varchar(45) DEFAULT NULL,
         lastname varchar(45) DEFAULT NULL,
         email varchar(45) DEFAULT NULL,
+        password varchar(100) DEFAULT NULL,
         phone varchar(45) DEFAULT NULL,
         extra INT DEFAULT 0,
+        roleId INT,
         creationdatetime datetime DEFAULT CURRENT_TIMESTAMP,
         updateddatetime datetime DEFAULT CURRENT_TIMESTAMP,
         PRIMARY KEY (id),
-        UNIQUE KEY email_UNIQUE (email),
-        UNIQUE KEY phone_UNIQUE (phone)
+        FOREIGN KEY (roleId) REFERENCES roles(id),
+        UNIQUE KEY email_UNIQUE (email)        
       )      
       ";
     }

@@ -27,5 +27,5 @@ $init = new Init($router, $_SERVER, $_COOKIE);
 //$html->div($router->getCurrentController(), "style = 'background-color: red'");
 
 $navigator = new SimpleMVCNavigator();
-$navigator->navigate($router->getCurrentController(), $router->getCurrentAction());
+$navigator->navigate($_SERVER, $router->getCurrentController(), $router->getCurrentAction());
 
