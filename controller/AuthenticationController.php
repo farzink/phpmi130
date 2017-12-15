@@ -3,12 +3,16 @@ require_once("BaseController.php");
 require_once("./model/viewmodel/RegisterViewModel.php");
 require_once("./repository/ProfileRepository.php");
 require_once("./model/ProfileModel.php");
+require_once("./utility/SigninHelper.php");
+
 
 class AuthenticationController extends BaseController {
-    private $repo;
+    private $profileRepo;
+    private $authTempRepo;
     public function __construct(){
         parent::__construct();
-        $this->repo = new ProfileRepository(new DataAccess());
+        $dataAccess = new DataAccess();
+        $this->profileRepo = new ProfileRepository($dataAccess);        
     }
     public function login(){
         $this->view();        
@@ -19,15 +23,21 @@ class AuthenticationController extends BaseController {
      */
     public function register(RegisterViewModel $model, $type){
         //echo($model->email);
-        if($type == "POST"){
-        $fgdfg = $this->repo->getById(1);
-        $user = $this->repo->getByEmail($model->email);
+        if($type == "POST"){        
+        $user = $this->profileRepo->getByEmail($model->email);
         if($user == null){            
             $profile = new ProfileModel();
             $profile->email = $model->email;
             $profile->password = $model->password;
-            if($this->repo->add($profile))
+            if($this->profileRepo->add($profile)){
+                $uid = $this->profileRepo->getByEmail($model->email);
+                if(SigninHelper::signin($uid)){
                 $this->redirect("home/index");
+                }
+                else{
+                    //go to error page
+                }
+            }
         }
         else
         {

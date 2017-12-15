@@ -7,7 +7,7 @@ class AuthTempMigration{
       "CREATE TABLE {$tableName}
       (
         id int(11) NOT NULL AUTO_INCREMENT,
-        token varchar(45) DEFAULT NULL,     
+        token varchar(150) DEFAULT NULL,     
         expirationdatetime datetime DEFAULT CURRENT_TIMESTAMP,
         creationdatetime datetime DEFAULT CURRENT_TIMESTAMP,
         updateddatetime datetime DEFAULT CURRENT_TIMESTAMP,
