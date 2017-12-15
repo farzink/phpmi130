@@ -14,15 +14,9 @@
 </nav>
 
 
-function:[/*
-  if(array_key_exists("id", $model)){
-    return "true";
-  }
-  else{
-    return "false";
-  }
-  */
-]
+function:
+//  if(array_key_exists("id", $model)){    return "true";  }  else{    return "false";  } 
+  %
 
 
 

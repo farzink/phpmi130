@@ -5,6 +5,7 @@ class ProfileModel {
     public $firstname;
     public $lastname;
     public $email;
+    public $password;
     public $phone;
     public $creationDateTime;
     public $updateDateTime;

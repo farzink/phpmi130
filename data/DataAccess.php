@@ -37,7 +37,7 @@ class DataAccess
         } catch (Exception $ex) {
             //some error reporting
         } finally {
-            $this->connection->close();
+            $this->close();
         }
     }
     //need to be tested out later on

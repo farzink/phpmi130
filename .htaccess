@@ -2,5 +2,5 @@
     RewriteEngine On
 
     
-    RewriteRule ^(.*)$ app.php?content=$1 [QSA] [NC] [L]
+    RewriteRule ^(.*)$ App.php?content=$1 [QSA] [NC] [L]
 </IfModule>

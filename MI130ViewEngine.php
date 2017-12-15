@@ -60,12 +60,14 @@ class MI130ViewEngine {
         , $this->content);            
     }
     function runExecutables($model){
-        $this->content = preg_replace_callback(MI130ViewEngineConfig::$executablePattern, function(array $m) use ($model){            
-            extract($model);
-            return eval($m[1]);
+        
+        $result = preg_replace_callback(MI130ViewEngineConfig::$executablePattern, function($m) use ($model){                        
+            extract($model);            
+            return eval($m[1]);            
             
         }
-        , $this->content);            
+        , $this->content, -1);            
+        $this->content = $result;
     }
     function replace($model){
         echo($model);

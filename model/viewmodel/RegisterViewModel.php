@@ -1,5 +1,5 @@
 <?php
  class RegisterViewModel {
-    public $email;
+    public $email;    
     public $password;
  }

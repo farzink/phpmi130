@@ -16,5 +16,5 @@ class MI130ViewEngineConfig {
     //patterns
     public static $linkPattern = "/link:\[(?<link>.*)\]/";
     public static $modelPattern = "/model:\[(.*)\]/";
-    public static $executablePattern = "/function:\[((.|\n)*)\]/";
+    public static $executablePattern = "/function:(([^%]*)*)%{1}/";
 }

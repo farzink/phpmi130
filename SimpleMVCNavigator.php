@@ -64,7 +64,7 @@ class SimpleMVCNavigator {
         $model = $this->model($doc, $paramDefinition);  
         //echo($_POST); 
         //echo(serialize($model->email));
-        $controller->$action($model);
+        $controller->$action($model, $this->getRequestType());
         }
         else
         {
@@ -81,6 +81,15 @@ class SimpleMVCNavigator {
             break;
             case "get":            
             $model = $this->convertToModel($_GET, $paramDefinition);
+            break;
+            case "patch":            
+            //$model = $this->convertToModel($_GET, $paramDefinition);
+            break;
+            case "put":            
+            //$model = $this->convertToModel($_GET, $paramDefinition);
+            break;
+            case "delete":            
+            //$model = $this->convertToModel($_GET, $paramDefinition);
             break;
         }
         return $model;        

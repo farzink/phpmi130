@@ -1,5 +1,6 @@
 <?php
 require_once("./MI130ViewEngine.php");
+require_once("./AppConfig.php");
 
 class BaseController {
     private $viewEngine;
@@ -18,5 +19,10 @@ class BaseController {
     }
     protected function addError($key, $value){
         $this->modelErrors[$key."error"] = $value;
+    }
+    protected function redirect($route)
+    {
+        $base = AppConfig::$base;
+        header("Location: {$base}/{$route}");
     }
 }
