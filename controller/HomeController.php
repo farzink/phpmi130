@@ -5,6 +5,7 @@ class HomeController extends BaseController {
         parent::__construct();
     }    
     public function index(){
+        $this->addError("id", "some error");
         $this->view([
             "id" => "100",
             "name" => "someone"

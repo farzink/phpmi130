@@ -15,10 +15,13 @@
 
 
 function:[
-  if(3 == 5)
+  if(array_key_exists("id", $model)){
     return "true";
-  else
-   return "false";
+  }
+  else{
+    return "false";
+  }
+
 ]
 
 

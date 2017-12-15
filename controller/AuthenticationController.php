@@ -5,9 +5,10 @@ class AuthenticationController extends BaseController {
         parent::__construct();
     }
     public function login(){
-        $this->view("something");        
+        $this->view();        
     }
     public function register(){
-        $this->view("something");        
+        $this->addError("email", "sorry, the email is taken");
+        $this->view();        
     }
 }

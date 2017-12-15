@@ -59,16 +59,18 @@ class MI130ViewEngine {
         }
         , $this->content);            
     }
-    function runExecutables(){
-        $this->content = preg_replace_callback(MI130ViewEngineConfig::$executablePattern, function(array $m){
+    function runExecutables($model){
+        $this->content = preg_replace_callback(MI130ViewEngineConfig::$executablePattern, function(array $m) use ($model){            
+            extract($model);
             return eval($m[1]);
+            
         }
         , $this->content);            
     }
     function replace($model){
         echo($model);
     }
-    public function cook($controller, $action, $model = NULL){
+    public function cook($controller, $action, $model = []){
         $this->viewPath = MI130ViewEngineConfig::$viewPath;
         $master = MI130ViewEngineConfig::$master;
         $masterPath = "{$this->viewPath}/{$master}";
@@ -77,7 +79,7 @@ class MI130ViewEngine {
         $this->prepareFooter();
         $this->prepareBody($controller, $action, $model);
         $this->preparelinks();
-        $this->runExecutables();
+        $this->runExecutables($model);
         return $this->content;
     }
 }
