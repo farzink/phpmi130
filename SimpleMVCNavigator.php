@@ -1,6 +1,8 @@
 <?php
 require_once("utility/CommentExtractor.php");
 require_once("SimpleMVCNavigatorConfig.php");
+require_once("utility/HTMLEncoder.php");
+
 class SimpleMVCNavigator {
     private $path = "controller";
     private $request;
@@ -84,10 +86,11 @@ class SimpleMVCNavigator {
         return $model;        
     }
     function convertToModel(array $array, $className) {
+        $encoder = new HTMLEncoder();
         $model = new $className();        
         foreach ($model as $key => $value){            
             if(array_key_exists($key, $array)){                
-                $model->$key = $array[$key];
+                $model->$key = $encoder->encode($array[$key]);                
             }
         }
         return $model;
