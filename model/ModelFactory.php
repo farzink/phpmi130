@@ -11,9 +11,19 @@ class ModelFactory {
         $profile->firstname = $raw["firstname"];
         $profile->lastname = $raw["lastname"];
         $profile->email = $raw["email"];
+        $profile->password = $raw["password"];
         $profile->phone = $raw["phone"];
         $profile->creationDateTime = $raw["creationdatetime"];
         $profile->updateDateTime = $raw["updateddatetime"];        
         return $profile;
+    }
+    public static function rawToAuthTempModel($raw){
+        $authtemp = new AuthTempModel();
+        $authtemp->id = $raw["id"];
+        $authtemp->token = $raw["token"];
+        $authtemp->expirationdatetime = $raw["expirationdatetime"];        
+        $authtemp->creationDateTime = $raw["creationdatetime"];
+        $authtemp->updateDateTime = $raw["updateddatetime"];        
+        return $authtemp;
     }
 }

@@ -13,11 +13,11 @@ class AuthTempRepository
     }
     public function getByToken($token)
     {
-        $query = "SELECT * FROM profiles where token = '{$token}'";
+        $query = "SELECT * FROM authtemp where token = '{$token}'";
         $result = $this->data->executeQuery($query);
         if ($result->num_rows > 0) {
             //while($row = $result->fetch_assoc()) {
-            return ModelFactory::rawToProfileModel($result->fetch_assoc());
+            return ModelFactory::rawToAuthTempModel($result->fetch_assoc());
             //echo "id: " . $row["id"]. " - Name: " . $row["firstname"]. " " . $row["email"]. "<br>";
             //}
         } else {
@@ -26,8 +26,8 @@ class AuthTempRepository
     }
     public function add(AuthTempModel $model)
     {        
-        try {
-            $query = "INSERT INTO authtemp (token) VALUES ('{$model->token}')";            
+        try {            
+            $query = "INSERT INTO authtemp (token, expirationdatetime) VALUES ('{$model->token}', '{$model->expirationdatetime->format('y-m-d')}')";                        
             $this->data->executeQuery($query);
             return true;
         } catch (Exception $ex) {

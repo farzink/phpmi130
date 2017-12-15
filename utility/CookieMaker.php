@@ -14,6 +14,12 @@ class CookieMaker {
         else
             return NULL;
     }
+    public function exists($name){
+        if(isset($_COOKIE[$name]))
+        return TRUE;
+     else
+         return FALSE;
+    }
     public static function removeCookie($name){
         if(isset($_COOKIE[$name]))
             setcookie($name, "", time() - CookieMaker::$aDay);
@@ -21,5 +27,8 @@ class CookieMaker {
     public static function tokenGenerator($param1, $param2){
         $value = $param1.$param2;
         return password_hash($value, PASSWORD_DEFAULT);
+    }
+    public static function getExpirayForDays($days){
+        return time() + (CookieMaker::$aDay * $days);
     }
 }

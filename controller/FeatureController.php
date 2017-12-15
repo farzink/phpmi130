@@ -10,7 +10,7 @@ class FeatureController extends BaseController {
      * @return void
      */
     public function index(){
-        $this->view("something");        
+        $this->view();        
     }
 }
 
