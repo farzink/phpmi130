@@ -1,0 +1,6 @@
+<div class="continer">
+<h1 class="d4">Something has gone wrong</h1>
+<p>reason: </p>
+<p>model:[reason]</p>
+<a class="btn btn-outline-warning my-2 my-sm-0 m-2 text-dark" href="/phpmi130/model:[link]">try again!</a>
+</div>

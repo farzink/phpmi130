@@ -6,4 +6,5 @@ class AuthTempModel {
     public $expirationdatetime;
     public $creationDateTime;
     public $updateDateTime;
+    public $profileid;
 }

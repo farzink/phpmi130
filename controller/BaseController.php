@@ -1,18 +1,29 @@
 <?php
 require_once("./MI130ViewEngine.php");
 require_once("./AppConfig.php");
+require_once("./model/ErrorModel.php");
 
 class BaseController {
     private $viewEngine;
     private $modelErrors = [];
+    private $auth;
     public function __construct(){        
         $this->viewEngine = new MI130ViewEngine();
+        $this->auth = $_SERVER['user'];        
+    }
+    protected function getAuth(){
+        return $this->auth;
     }
     protected function view($model = NULL){
+        $auth['isLoggedin'] = false;        
+        if($this->getAuth() !== NULL){
+            $auth['isLoggedin'] = true;
+        }       
+        
         $controller = debug_backtrace()[1]['class'];
         $action = debug_backtrace()[1]['function'];
         if($model != NULL)
-            $model = array_merge($this->modelErrors, (array)$model);
+            $model = array_merge($this->modelErrors, (array)$model, $auth);
         else
             $model = $this->modelErrors;
         echo($this->viewEngine->cook($controller, $action, $model));
@@ -24,5 +35,8 @@ class BaseController {
     {
         $base = AppConfig::$base;
         header("Location: {$base}/{$route}");
+    }
+    protected function getCSRF(){
+        return $_POST["csrf_token"];
     }
 }

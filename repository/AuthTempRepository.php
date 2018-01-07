@@ -26,8 +26,18 @@ class AuthTempRepository
     }
     public function add(AuthTempModel $model)
     {        
-        try {            
-            $query = "INSERT INTO authtemp (token, expirationdatetime) VALUES ('{$model->token}', '{$model->expirationdatetime->format('y-m-d')}')";                        
+        try {                        
+            $query = "INSERT INTO authtemp (token, profileid, expirationdatetime) VALUES ('{$model->token}', {$model->profileid}, '{$model->expirationdatetime->format('y-m-d')}')";                        
+            $this->data->executeQuery($query);
+            return true;
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
+    public function removeByProfileid($profileid)
+    {        
+        try {                        
+            $query = "delete FROM authtemp where profileid = '{$profileid}'";
             $this->data->executeQuery($query);
             return true;
         } catch (Exception $ex) {

@@ -11,6 +11,7 @@ class SigninHelper
     {
         try
         {
+            
             $data = new DataAccess();
             $repo = new AuthTempRepository($data);
             $uniq = CookieMaker::unique();
@@ -18,8 +19,10 @@ class SigninHelper
             CookieMaker::cook(AuthConfig::$cookieName, $mixed, AuthConfig::$defaultCookieExpirationInDays);
             $model = new AuthTempModel();
             $model->token = $mixed;
+            $model->profileid = $uid;
             $dt = CookieMaker::getExpirayForDays(AuthConfig::$defaultCookieExpirationInDays);            
             $model->expirationdatetime = new DateTime("@$dt");              
+            $repo->removeByProfileid($uid);
             if ($repo->add($model)) {
                 return true;
             } 
@@ -52,8 +55,10 @@ class SigninHelper
             CookieMaker::cook(AuthConfig::$cookieName, $mixed, AuthConfig::$defaultCookieExpirationInDays);
             $model = new AuthTempModel();
             $model->token = $mixed;
+            $model->profileid = $uid;
             $dt = CookieMaker::getExpirayForDays(AuthConfig::$defaultCookieExpirationInDays);            
-            $model->expirationdatetime = new DateTime("@$dt");              
+            $model->expirationdatetime = new DateTime("@$dt");     
+            $repo->removeByProfileid($uid);         
             if ($repo->add($model)) {
                 return true;
             } 

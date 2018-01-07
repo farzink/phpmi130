@@ -68,6 +68,7 @@ class MI130ViewEngine {
         }
         , $this->content, -1);            
         $this->content = $result;
+        
     }
     function replace($model){
         echo($model);
@@ -77,11 +78,14 @@ class MI130ViewEngine {
         $master = MI130ViewEngineConfig::$master;
         $masterPath = "{$this->viewPath}/{$master}";
         $this->content = file_get_contents($masterPath, true);
+        
         $this->prepareHeader();
         $this->prepareFooter();
+        
         $this->prepareBody($controller, $action, $model);
-        $this->preparelinks();
         $this->runExecutables($model);
+        
+        $this->preparelinks();
         return $this->content;
     }
 }

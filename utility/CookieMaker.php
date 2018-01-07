@@ -22,7 +22,8 @@ class CookieMaker {
     }
     public static function removeCookie($name){
         if(isset($_COOKIE[$name]))
-            setcookie($name, "", time() - CookieMaker::$aDay);
+        setcookie($name, "", time() - CookieMaker::$aDay, "/", NULL);
+            //setcookie($name, "", time() - CookieMaker::$aDay);
     }
     public static function tokenGenerator($param1, $param2){
         $value = $param1.$param2;

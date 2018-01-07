@@ -9,6 +9,7 @@ class ProfileModel {
     public $phone;
     public $creationDateTime;
     public $updateDateTime;
+    public $roleId;
 }
 
 

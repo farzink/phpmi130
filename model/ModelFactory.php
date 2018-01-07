@@ -24,6 +24,17 @@ class ModelFactory {
         $authtemp->expirationdatetime = $raw["expirationdatetime"];        
         $authtemp->creationDateTime = $raw["creationdatetime"];
         $authtemp->updateDateTime = $raw["updateddatetime"];        
+        $authtemp->profileid = $raw["profileid"];        
         return $authtemp;
+    }
+    public static function rawToCSRFModel($raw){
+        $model = new CSRFModel();
+        $model->id = $raw["id"];
+        $model->email = $raw["email"];
+        $model->token = $raw["token"];
+        $model->expirationdatetime = $raw["expirationdatetime"];        
+        $model->creationDateTime = $raw["creationdatetime"];
+        $model->updateDateTime = $raw["updateddatetime"];                
+        return $model;
     }
 }

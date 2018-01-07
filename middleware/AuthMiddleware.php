@@ -40,7 +40,20 @@ class AuthMiddleware implements IMiddlewareBase {
                 "data" => "data",
                 "next" => false
             ];
-        }        
+        }
+        else if(CookieMaker::exists(AuthConfig::$cookieName)){
+            $cookie = CookieMaker::getCookie(AuthConfig::$cookieName);
+            $repo = new AuthTempRepository(new DataAccess());
+            $auth = $repo->getByToken($cookie);
+            if($auth != NULL ){
+                //check the expiry
+                $server['user'] = $auth;                    
+                return [
+                    "data" => "data",
+                    "next" => true
+                ];            
+            }               
+        }
         return [
             "data" => "data",
             "next" => true

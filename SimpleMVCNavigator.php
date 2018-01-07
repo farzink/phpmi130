@@ -53,7 +53,7 @@ class SimpleMVCNavigator {
     function injectModelByVerb(&$controller,&$action){
         $com = new CommentExtractor();
         $doc = $com->getParambyClass($controller)->getMethod($action);
-        
+        //echo(count($doc->getParameters()));
         //echo($this->prepareVerb($doc));
         if(count($doc->getParameters()) > 0)
         {
@@ -74,6 +74,8 @@ class SimpleMVCNavigator {
     function model($content, $paramDefinition){
         $model;
         preg_match(SimpleMVCNavigatorConfig::$verbPattern, $content, $found);
+        //echo($found[1]);
+        //echo($content);
         switch($found[1])
         {
             case "post":            
@@ -94,7 +96,7 @@ class SimpleMVCNavigator {
         }
         return $model;        
     }
-    function convertToModel(array $array, $className) {
+    function convertToModel(array $array, $className) {                            
         $encoder = new HTMLEncoder();
         $model = new $className();        
         foreach ($model as $key => $value){            

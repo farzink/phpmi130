@@ -1,0 +1,75 @@
+<div class="row justify-content-center">
+    <div class="card m-5 p-2" style="width: 60rem;">
+        <div class="card-body">
+            <h4 class="card-title">Manage Profile</h4>
+            <h6 class="card-subtitle mb-4 text-muted ">You can edit your profile</h6>
+
+
+
+
+           
+
+            <form method="post">
+            <input type="hidden" name="csrf_token" value="model:[csrf]" />
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-3 col-form-label">First Name</label>
+                <div class="col-sm-8">
+                    <input class="form-control" id="inputEmail3" placeholder="First Name" value="model:[firstname]">
+                    <!-- <span class="text-danger" v-if="!$v.firstname.maxLength">first name can not be more than 40 characters</span> -->
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-3 col-form-label">Last Name</label>
+                <div class="col-sm-8">
+                    <input class="form-control" id="inputEmail3" placeholder="Last Name" value="model:[lastname]">
+                    <!-- <span class="text-danger" v-if="!$v.lastname.maxLength">last name can not be more than 40 characters</span> -->
+                </div>
+            </div>
+
+
+             
+             <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-3 col-form-label">Phone</label>
+                <div class="col-sm-8">
+                    <input class="form-control" id="inputEmail3" value="model:[phone]">
+                </div>
+            </div>
+
+
+
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-3 col-form-label">Email</label>
+                <div class="col-sm-8">
+                    <input class="form-control" id="inputEmail3" value="model:[email]">
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="form-group row">
+                <div class="col-sm-12 offset-md-3 col-md-6">
+                    <button type="submit" class="btn btn-primary" style="width: 10rem">Update</button>
+                </div>
+            </div>
+
+
+        </form>
+
+
+
+
+        </div>
+    </div>
+</div>

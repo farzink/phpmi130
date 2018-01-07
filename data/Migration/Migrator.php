@@ -7,6 +7,9 @@ require_once "ProfileMigration.php";
 require_once "AuthTempMigration.php";
 require_once "UserLogMigration.php";
 require_once "RoleMigration.php";
+require_once "EmailTokenMigration.php";
+require_once "AccountRemovalMigration.php";
+require_once "CSRFTokenMigration.php";
 require_once('../../utility/AuthHelper.php');
 
 $u = "";
@@ -94,6 +97,31 @@ try {
         pl("{$counter}. {$table} table is susccessfully created.");
         $counter++;
     }
+
+
+    $command = EmailTokenMigration::migrate();        
+    $table = EmailTokenMigration::$tableName;
+    if($dataAccess->executeCommand($command) == true) {
+        pl("{$counter}. {$table} table is susccessfully created.");
+        $counter++;
+    }
+
+    $command = AccountRemovalMigration::migrate();        
+    $table = AccountRemovalMigration::$tableName;
+    if($dataAccess->executeCommand($command) == true) {
+        pl("{$counter}. {$table} table is susccessfully created.");
+        $counter++;
+    }
+
+
+    $command = CSRFTokenMigration::migrate();        
+    $table = CSRFTokenMigration::$tableName;
+    if($dataAccess->executeCommand($command) == true) {
+        pl("{$counter}. {$table} table is susccessfully created.");
+        $counter++;
+    }
+
+    
 
     
 

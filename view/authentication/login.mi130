@@ -25,6 +25,7 @@
                 }              
             %
             <button type="submit" class="btn btn-primary">log in</button>
+            <a class="btn btn-success" href="link:[authentication/register]">register</a>
             
         </div>
     </div>

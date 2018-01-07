@@ -4,6 +4,8 @@ require_once("./model/viewmodel/RegisterViewModel.php");
 require_once("./repository/ProfileRepository.php");
 require_once("./model/ProfileModel.php");
 require_once("./utility/SigninHelper.php");
+require_once("./utility/CookieMaker.php");
+
 
 
 class AuthenticationController extends BaseController {
@@ -32,6 +34,14 @@ class AuthenticationController extends BaseController {
         }
         $this->view();        
     }
+     /**
+     * verb:[post]
+     * allowed:[admin]
+     */
+    public function logout(){
+        CookieMaker::removeCookie(AuthConfig::$cookieName);
+        $this->redirect('/home/index');        
+    }
     /**
      * verb:[post]
      * allowed:[admin]
@@ -43,8 +53,9 @@ class AuthenticationController extends BaseController {
         if($user == null){            
             $profile = new ProfileModel();
             $profile->email = $model->email;
-            $profile->password = $model->password;
-            if($this->profileRepo->add($profile)){
+            $profile->password = $model->password;            
+            $profile->roleId = 1; 
+            if($this->profileRepo->add($profile)){                          
                 $uid = $this->profileRepo->getByEmail($model->email)->id;
                 if(SigninHelper::signin($uid)){
                     $this->redirect("home/index");

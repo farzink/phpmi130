@@ -5,13 +5,21 @@ class HomeController extends BaseController {
         parent::__construct();
     }    
     public function index(){
-        $this->addError("id", "some error");
+        $this->addError("id", "");
         $this->view([
-            "id" => "100",
+            "id" => "",
             "name" => "someone"
         ]);        
     }    
-    public function index1(){
-        echo "index 1";
+    // public function error(ErrorModel $model){
+    //     $this->view($model);
+    // }
+        /**
+         * params
+         * verb:[get]
+         * 
+         */
+    public function error(ErrorModel $model){        
+        $this->view($model);
     }
 }
