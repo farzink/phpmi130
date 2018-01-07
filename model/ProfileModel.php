@@ -10,6 +10,8 @@ class ProfileModel {
     public $creationDateTime;
     public $updateDateTime;
     public $roleId;
+    public $emailToken;
+    public $expirationdatetime;
 }
 
 

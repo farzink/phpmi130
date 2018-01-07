@@ -38,10 +38,10 @@ function seed(){
 
     $dataAccess->executeCommand($command);
 
-    $command = "INSERT INTO profiles (firstname, lastname, email, password, phone, roleId)
-                VALUES ('farzin', 'k', 'farzin@somewhere.fart','". AuthHelper::hashPassword("12343sdfsdfs") ."', '3423345345', 1)";
+    // $command = "INSERT INTO profiles (firstname, lastname, email, password, phone, roleId)
+    //             VALUES ('farzin', 'khoshneyat', 'farzin_fz@yahoo.com','". AuthHelper::hashPassword("12") ."', '0157 573383242342', 1)";
     
-    $dataAccess->executeCommand($command);
+    // $dataAccess->executeCommand($command);
 }
     
 

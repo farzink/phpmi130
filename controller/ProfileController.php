@@ -4,6 +4,7 @@ require_once("BaseController.php");
 require_once("./repository/ProfileRepository.php");
 require_once("./model/viewmodel/ProfileViewModel.php");
 require_once("./utility/CSRFHelper.php");
+
 class ProfileController extends BaseController {
     private $profileRepo;
     private $authTempRepo;

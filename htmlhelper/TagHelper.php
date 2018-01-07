@@ -44,5 +44,9 @@ class TagHelper {
          ($extras ===  "") ?  ("<span>{$content}</span>") : ("<span {$extras}>{$content}</span>")
         );
      }
+     public function link($link, $content, $extras=""){
+        return 
+         ($extras ===  "") ?  ("<a href='{$link}'>{$content}</a>") : ("<span {$extras}>{$content}</span>");        
+     }
 
 }

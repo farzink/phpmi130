@@ -15,6 +15,8 @@ class ModelFactory {
         $profile->phone = $raw["phone"];
         $profile->creationDateTime = $raw["creationdatetime"];
         $profile->updateDateTime = $raw["updateddatetime"];        
+        $profile->emailToken = $raw["emailToken"];        
+        $profile->expirationdatetime = $raw["expirationdatetime"];        
         return $profile;
     }
     public static function rawToAuthTempModel($raw){
