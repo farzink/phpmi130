@@ -65,7 +65,7 @@ class AuthenticationController extends BaseController
                     $link = $html->link("http://localhost:9000/phpmi130/authentication/verify?token=" . $emailToken, "verify");
                     Mailer::send($model->email, "please verify your email address", $link);
                     if (SigninHelper::signin($uid)) {
-                        $this->redirect("home/index");
+                       $this->redirect("home/index");
                     } else {
                         //go to error page
                     }
@@ -85,11 +85,11 @@ class AuthenticationController extends BaseController
     {
         $message = new ErrorModel();
         $result = EmailTokenHelper::validate($model->token);
-       if($result->isSuccess){       
-       $message->reason = "successful activation";       
+       if($result->isSuccessfull){       
+        $message->reason = "successful activation";       
        }
        else{
-        $message->reason = "link is wrong or expired, resend?";
+        $message->reason = "link is wrong or expired, resend?".$result->email;
         
        }
        $this->view($message);

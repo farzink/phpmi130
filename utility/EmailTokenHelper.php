@@ -11,7 +11,7 @@ class EmailTokenHelper
     }
     public static function generate($email){
         //$aSeoncd = 3600;
-        $aSeoncd = 5;
+        $aSeoncd = 300;
         $id = uniqid();
         $time = time();
         $val = $email . $id . $time;
@@ -25,21 +25,34 @@ class EmailTokenHelper
         $repo = new ProfileRepository($dataAccess);
         $model = new ProfileModel();
         $model->email = $email;
-        $model->token = $token;
+        $model->emailToken = $token;
         $model->expirationdatetime = $expiration;          
         $repo->updateEmailToken($model);
     }
     public static function validate($token){
         $dataAccess=new DataAccess();
         $repo = new ProfileRepository($dataAccess);
-        $csrf = $repo->getByToken($email, $token);       
+        $profile = $repo->getByEmailToken($token);       
         
         $now = date('Y-m-d H:i:s');        
         
-         $isExpired = $now > date($csrf->expirationdatetime);
-         if($csrf != null && !$isExpired)
-             return TRUE;
+        if($profile != null){
+            $isExpired = $now > date($profile->expirationdatetime);
+         if($profile->emailToken == $token && !$isExpired){
+             $repo->activateProfilebyEmail($profile->email);
+            return (object) [ 'isSuccessfull' => TRUE, 'email' => null];
+         }
+         else
+         {
+            return (object) [ 'isSuccessfull' => FALSE, 'email' => $profile->email];
+         }
+             
          return FALSE;
+        }
+        else
+        {
+            return (object) [ 'isSuccessfull' => FALSE, 'email' => null];
+        }
     }
 
 }

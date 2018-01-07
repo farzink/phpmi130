@@ -24,7 +24,10 @@ class Mailer
         $mail->SMTPAuth = true;
         $mail->Username = "mantoolage@gmail.com";
         $mail->Password = "@mantoolagE12";
-        
+        $mail->setFrom('mantoolage@gmail.com', 'mantool age');
+        $mail->addReplyTo('mantoolage@gmail.com', 'mantool age');
+        //$mail->addAddress('farzin_fz@yahoo.com', 'farzin farzin');
+        $mail->addAddress($recpient, 'farzin farzin');
         //$mail->Subject = 'dfasdfadfadfa';
         $mail->Subject = $subject;
         //Read an HTML message body from an external file, convert referenced images to embedded,

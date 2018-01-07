@@ -1,5 +1,7 @@
 <?php
 
+use PHPMailer\PHPMailer\Exception;
+
 require_once './model/ModelFactory.php';
 require_once './model/ProfileModel.php';
 require_once './utility/AuthHelper.php';
@@ -39,7 +41,7 @@ class ProfileRepository
         $password = AuthHelper::hashPassword($model->password);
         try {
             $query = "INSERT INTO profiles (email, password) VALUES ('{$model->email}', '{$password}')";            
-            echo($query);
+            
             $this->data->executeQuery($query);
             return true;
         } catch (Exception $ex) {
@@ -49,12 +51,41 @@ class ProfileRepository
     public function updateEmailToken(ProfileModel $model)
     {        
         try {
-            $query = "UPDATE profiles set emailToken='{$model->emailToken}' where email = '{$model->email}'";            
+            $date = date('Y-m-d H:i:s', $model->expirationdatetime);
+            $query = "UPDATE profiles set emailToken='{$model->emailToken}', expirationdatetime='{$date}' where email = '{$model->email}'";  
+
             $this->data->executeQuery($query);
             return true;
         } catch (Exception $ex) {
             return false;
         }
     }
+    public function getByEmailToken($emailToken)
+    {
+        $query = "SELECT * FROM profiles where emailToken = '{$emailToken}'";
+        $result = $this->data->executeQuery($query);
+        if ($result->num_rows > 0) {
+            return ModelFactory::rawToProfileModel($result->fetch_assoc());
+        } else {
+            return null;
+        }
+    }
+
+    public function activateProfilebyEmail($email)
+    {
+        try
+        {
+        $query = "UPDATE profiles set isActivated=1 where email = '{$email}'";        
+        $this->data->executeQuery($query);
+        }
+        catch(Exception $ex)
+        {
+            return FALSE;
+        }
+    }
+
+    
     
 }
+
+
