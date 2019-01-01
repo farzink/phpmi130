@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: sticky; top: 0; z-index: 1000;">
   <a class="navbar-brand bg-warning rounded">  &nbsp MI130 &nbsp </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -12,7 +12,9 @@
     function:
   if(array_key_exists("isLoggedin", $model)){   
     if($model['isLoggedin'] == TRUE)
-    return '<a class="btn btn-outline-warning my-2 my-sm-0 m-2 text-dark" href="link:[authentication/logout]">Log out</a>';  
+    return '
+    <a id="shoppingCard" class="btn btn-success my-2 my-sm-0 m-2 text-white" href="link:[]">Shopping Card (0)</a>
+    <a class="btn btn-outline-warning my-2 my-sm-0 m-2 text-dark" href="link:[authentication/logout]">Log out</a>';  
     if($model['isLoggedin'] == FALSE)
     {
     return '<a class="btn btn-outline-warning my-2 my-sm-0 m-2 text-dark" href="link:[authentication/login]">Log in</a>'; 

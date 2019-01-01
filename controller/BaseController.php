@@ -4,6 +4,15 @@ require_once("./AppConfig.php");
 require_once("./model/ErrorModel.php");
 
 class BaseController {
+
+    const OK = 200;
+    const CREATED = 201;
+    const ACCEPTED = 202;
+    const BAD_REQUEST = 400;
+    const UNAUTHORIZED = 401;
+    const NOT_FOUND = 404;
+    const INTERNAL_SERVER_ERROR = 500;
+
     private $viewEngine;
     private $modelErrors = [];
     private $auth;
@@ -28,6 +37,13 @@ class BaseController {
             $model = $this->modelErrors;
         echo($this->viewEngine->cook($controller, $action, $model));
     }
+    protected function json($model = NULL, $httpStatus=BaseController::OK){
+        http_response_code($httpStatus);
+        echo json_encode($model);
+    }
+    protected function status($httpStatus=BaseController::OK){
+        http_response_code($httpStatus);        
+    }
     protected function addError($key, $value){
         $this->modelErrors[$key."error"] = $value;
     }
@@ -38,5 +54,12 @@ class BaseController {
     }
     protected function getCSRF(){
         return $_POST["csrf_token"];
+    }
+    protected function isAuthorized(){
+        if(!isset($this->auth)){
+            $this->status($this::UNAUTHORIZED);            
+            return false;
+        }
+        return true;
     }
 }

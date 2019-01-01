@@ -39,4 +39,33 @@ class ModelFactory {
         $model->updateDateTime = $raw["updateddatetime"];                
         return $model;
     }
+    public static function rawToItemModel($raw){
+        $model = new ItemModel();
+        $model->id = $raw["id"];
+        $model->title = $raw["title"];
+        $model->description = $raw["description"];
+        $model->imageAddress = $raw["imageAddress"];
+        $model->price = $raw["price"];
+        $model->creationDateTime = $raw["creationdatetime"];
+        $model->updateDateTime = $raw["updateddatetime"];
+        return $model;      
+    }
+    public static function rawToOrderModel($raw){
+        $model = new OrderModel();
+        $model->id = $raw["id"];
+        $model->profileId = $raw["profileId"];
+        $model->itemId = $raw["itemId"];
+        $model->price = $raw["price"];        
+        $model->creationDateTime = $raw["creationdatetime"];
+        $model->updateDateTime = $raw["updateddatetime"];
+        return $model;      
+    }
+
+    public static function OrderItemViewModelToOrderItem($model){
+        $orderModel = new OrderModel();
+        $orderModel->profileId = $model->profileId;
+        $orderModel->itemId = $model->itemId;
+        $orderModel->price = $model->price;
+        return $orderModel;
+    }
 }

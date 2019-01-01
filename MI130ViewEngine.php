@@ -45,6 +45,7 @@ class MI130ViewEngine {
         //$this->modelInjector($targetContent, $model);        
         
         $this->content = str_replace($bodyTag, $targetContent, $this->content);
+        
         $this->modelInjector($model);        
         
 
@@ -54,21 +55,18 @@ class MI130ViewEngine {
         }
     }
     function modelInjector(&$model){           
-        $this->content = preg_replace_callback(MI130ViewEngineConfig::$modelPattern, function(array $m) use($model){
+        $this->content = preg_replace_callback(MI130ViewEngineConfig::$modelPattern, function(array $m) use($model){            
             return $model[$m[1]];
         }
         , $this->content);            
     }
-    function runExecutables($model){
-        
-        $result = preg_replace_callback(MI130ViewEngineConfig::$executablePattern, function($m) use ($model){                        
-            extract($model);            
+    function runExecutables($model){                
+        $this->content = preg_replace_callback(MI130ViewEngineConfig::$executablePattern, function($m) use ($model){                        
+            extract($model);                             
             return eval($m[1]);            
             
         }
-        , $this->content, -1);            
-        $this->content = $result;
-        
+        , $this->content);                        
     }
     function replace($model){
         echo($model);
@@ -86,6 +84,8 @@ class MI130ViewEngine {
         $this->runExecutables($model);
         
         $this->preparelinks();
+        //return $this->content;
         return $this->content;
+        
     }
 }

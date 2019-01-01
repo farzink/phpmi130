@@ -1,110 +1,209 @@
-
-
-
 <div class="container m-4 p-3">
-<h4>
-    Followings are implemented
-</h4>
+    
+
+    function:
+        if(array_key_exists("items", $model)){
+            $content = '<div class="row">';
+            foreach($model['items'] as $item ){
+                 $content.= "<div class='col-sm-4'><div class='card mt-2' style='width: 18rem;'>
+                        <img class='card-img-top' style='object-fit: scale-down; width: auto; height: 215px; padding: 9px' src='http://localhost:9000/phpmi130/resource/get?id={$item->imageAddress}' alt='Card image cap'>
+                        <div class='card-body'>
+                          <h5 class='card-title'>{$item->title}</h5>
+                          <p class='card-text'>{$item->description}</p>
+                          <a href='#' data-itemId='{$item->id}' data-price='{$item->price}' class='btn btn-primary order-button'>Add to card</a>
+                        </div>
+                      </div></div>";
+                      
+                  
+            }
+            $content .= "</div>";
+            return $content;
+            //return json_encode($model['items']);
+        }
+        %
+        <input id="order" type="button" value="order" />
+        <script>
+            createRequest = (path, verb, data = null) => {                
+                return new Promise((a,s) => {
+                    var request = new XMLHttpRequest()
+                    request.addEventListener("load", i => {
+                        if(request.status === 200 ||request.status === 201){
+                            a(JSON.parse(request.response))
+                        } else {
+                            s(i)
+                        }
+                    })
+                    request.open(verb, path, true)
+                    if(data)
+                        request.send(JSON.stringify(data))
+                    else
+                        request.send()
+                })
+            }
 
 
+            var shoppingCard = document.getElementById("shoppingCard");
+            var path = "/phpmi130"
+            updateShoppingCart = items => {
+                if(shoppingCard){
+                    shoppingCard.innerHTML = `Shopping Card (${items})`;
+                    shoppingCard.title = `you have ${items} ${items == 1 ? 'item' : 'items'} in your card`;
+                }
+            }
+            initOrderbuttons = () => {
+                document.querySelectorAll(".order-button")
+                    .forEach(button => {
+                        button.addEventListener("click", e => {
+                            e.preventDefault()
+                            createRequest(`${path}/orders/additem?itemId=${button.dataset.itemid}&price=${button.dataset.price}`, "GET")
+                                .then(data => {
+                                    createRequest(`${path}/orders/card`, "GET")
+                                        .then(data => {
+                                            updateShoppingCart(data.length)
+                                        })
+                                })
+                                .catch(data => {
+                                    console.warn(data)
+                                })
 
-<br />
-<br />
+                        })
+                    })
+            }
+            window.addEventListener("load", e => {
+                updateShoppingCart(0)
 
-<h6>
-    Contents:
-</h6>
-<div>
-    <ul>
-        <li>
-            Home
-        </li>
-        <li>
-            Register new account
-        </li>
-        <li>
-            Login
-        </li>
-        <li>
-            Account Page (after Login)
-        </li>
-        <li>
-            Logout
-        </li>
-    </ul>
+                var order = document.getElementById("order");
+
+                createRequest(`${path}/orders/card`, "GET")                   
+                                .then(data => {
+                                    shoppingCard.innerHTML = `Shopping Card (${data.length})`;
+                                    shoppingCard.title = `you have ${data.length} ${data.length == 1 ? 'item' : 'items'} in your card`;
+                                })
+                // order.addEventListener("click", e => {
+                    
+                //     createRequest(`${path}/orders/additem?itemId=${2}&price=${9}`, "GET")                   
+                //         .then(data => {
+                //             createRequest(`${path}/orders/card`, "GET")                   
+                //                 .then(data => {
+                //                     shoppingCard.innerHTML = `Shopping Card (${data.length})`;
+                //                     shoppingCard.title = `you have ${data.length} ${data.length == 1 ? 'item' : 'items'} in your card`;
+                //                 })
+                //         })
+                //         .catch(data => {
+                //             console.warn(data)
+                //         })
+                    
+                // })
+
+                initOrderbuttons()
+
+            })
+        </script>
+   
+
 </div>
 
 
-
-<h6>
-    Functions:
-</h6>
-<div>
-<ul>
-    <li>
-        Confirm Email address
-    </li>
-    <li>
-        Resend activation link
-    </li>
-    <li>
-        Forgot Password --> Reset Password
-    </li>
-    <li>
-        Change Password
-    </li>
-    <li>
-        Change Mail
-    </li>
-    <li>
-        Delete Account
-    </li>
-    </ul>
-</div>
-
-<br />
-<br />
-
-<h6>
-    Features:
-</h6>
-<div>
-<ul>
-    <li>
-        Limited number of login attempts (Captcha integration)
-    </li>
-    <li>
-        Token system for changing Email address
-    </li>
-    <li>
-        Token system for confirming Email address
-    </li>
-    <li>
-        Token system for deleting account
-    </li>
-    <li>
-        Secure Session with Cookies and database
-    </li>
-    <li>
-        Timeout for Session
-    </li>
-    <li>
-        Timeout for Tokens
-    </li>
-    <li>
-        Secure Storage of passwords with hash and salt
-    </li>
-    <li>
-        XSS protection
-    </li>
-    <li>
-        CSRF protection
-    </li>
-    </ul>
-</div>
-
-</div>
+<!-- model:[id]
+model:[iderror] -->
 
 
-model:[id]
-model:[iderror]
+
+<!-- <h4>
+        Followings are implemented
+    </h4> -->
+
+
+
+    <!-- <br />
+    <br />
+
+    <h6>
+        Contents:
+    </h6>
+    <div>
+        <ul>
+            <li>
+                Home
+            </li>
+            <li>
+                Register new account
+            </li>
+            <li>
+                Login
+            </li>
+            <li>
+                Account Page (after Login)
+            </li>
+            <li>
+                Logout
+            </li>
+        </ul>
+    </div> -->
+
+     <!-- <h6>
+        Functions:
+    </h6>
+    <div>
+        <ul>
+            <li>
+                Confirm Email address
+            </li>
+            <li>
+                Resend activation link
+            </li>
+            <li>
+                Forgot Password ==> Reset Password
+            </li>
+            <li>
+                Change Password
+            </li>
+            <li>
+                Change Mail
+            </li>
+            <li>
+                Delete Account
+            </li>
+        </ul>
+    </div>
+    <br />
+    <br />
+    <h6>
+        Features:
+    </h6>
+    <div>
+        <ul>
+            <li>
+                Limited number of login attempts (Captcha integration)
+            </li>
+            <li>
+                Token system for changing Email address
+            </li>
+            <li>
+                Token system for confirming Email address
+            </li>
+            <li>
+                Token system for deleting account
+            </li>
+            <li>
+                Secure Session with Cookies and database
+            </li>
+            <li>
+                Timeout for Session
+            </li>
+            <li>
+                Timeout for Tokens
+            </li>
+            <li>
+                Secure Storage of passwords with hash and salt
+            </li>
+            <li>
+                XSS protection
+            </li>
+            <li>
+                CSRF protection
+            </li>
+        </ul>
+        
+    </div> -->
+
