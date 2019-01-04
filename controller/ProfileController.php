@@ -4,6 +4,7 @@ require_once("BaseController.php");
 require_once("./repository/ProfileRepository.php");
 
 require_once("./model/viewmodel/ProfileViewModel.php");
+require_once("./model/ModelFactory.php");
 require_once("./utility/CSRFHelper.php");
 
 class ProfileController extends BaseController {
@@ -23,20 +24,31 @@ class ProfileController extends BaseController {
      */
     public function edit(ProfileViewModel $model, $type){
         //echo($this->getAuth()->profileid);
+        
         $profile = $this->profileRepo->getById($this->getAuth()->profileid);       
         
         
         if($type == "GET"){        
+            
             $model->csrf = CSRFHelper::generate($profile->email);
+            $model->firstname = $profile->firstname;
+            $model->lastname = $profile->lastname;
+            $model->phone = $profile->phone;
+            
             $this->view($model);        
         }
         if($type == "POST"){ 
+            //$result = CSRFHelper::validate($profile->email, $this->getCSRF());
+            //echo($result); 
             if(!CSRFHelper::validate($profile->email, $this->getCSRF())){
+            
             // $errorModel = new ErrorModel();
             // $errorModel->reason = "your session is expired";
              $this->redirect("home/error?reason=your session is expired&link=profile/edit");
             }
-            //$this->redirect("home/index");    
+            $model->email = $profile->email;
+            $this->profileRepo->update(ModelFactory::ProfileViewModelToProfile($model));
+            $this->redirect("home/index");    
         }
     }
 }

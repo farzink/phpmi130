@@ -76,4 +76,18 @@ class DataAccess
             $connection->close();
         }
     }
+    public function executeCustomCommand($query)
+    {
+        try {
+            if ($this->connection == null) {                
+                $this->prepareConnection();
+            }
+            return $this->connection->query($query);
+            
+        } catch (Exception $ex) {
+            return false;
+        } finally {
+            $this->close();
+        }
+    }
 }

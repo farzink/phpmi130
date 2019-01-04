@@ -21,21 +21,82 @@
             //return json_encode($model['items']);
         }
         %
-        <input id="order" type="button" value="order" />
+
+        <div id="popup" style="position: fixed; display: none;
+         width: 100%; height: 100%; top: 0; left: 0; z-index: 1000; background-color: #94948b91">
+            <div style="position: relative; width: 100%; height: 100%">
+                <div style="position: absolute; width: 400px; 
+                height: 200px; 
+                left: 50%; transform: translate(-50%, -50%);
+                top: 50%; 
+                background-color: #122523;
+                border-radius: 12px;
+                padding: 12px;
+                color: white">
+                <div style="position: relative; width: 100%; height: 100%">
+                <p id="itemWarning">
+                </p>                    
+                <button id="yesButton" class="button" style="position: absolute; bottom: 2px; right: 12px; width: 120px; border: 0; color: white; border-radius: 3px; background-color: #298a29">Yes</button>
+                <button id="noButton" class="button" style="position: absolute; bottom: 2px; left: 12px; width: 120px; border: 0; color: white; border-radius: 3px; background-color: #af2424">No</button>
+            </div>
+                </div>
+                
+            </div>
+        </div>
+        <!-- <input id="order" type="button" value="order" /> -->
         <script>
+            const STORE = "store"
+            const itemWarning = document.getElementById("itemWarning")
+            const popup = document.getElementById("popup")
+            updateByLocalStorage = (extra=null) => {
+                const store = localStorage.getItem(STORE)
+                if(store != null){
+                    const items = JSON.parse(store)
+                    if(extra)
+                        extra(items.length)
+                }
+            }
+            addItemToLocalStorage = (item) => {
+                const store = localStorage.getItem("store")
+                if(store != null){
+                    const items = JSON.parse(store)
+                    items.push(item)
+                    localStorage.setItem(STORE, JSON.stringify(items))
+                } else {
+                    const items = []
+                    items.push(item)
+                    localStorage.setItem(STORE, JSON.stringify(items))
+                }
+            }
+            removeLocalStorage = () => {
+                localStorage.removeItem(STORE)
+            }     
+            getItemsInLocalStorage = () => {
+                const store = localStorage.getItem("store")
+                if(store != null){
+                    return JSON.parse(store)
+                }
+                return null
+            }       
+
+
             createRequest = (path, verb, data = null) => {                
                 return new Promise((a,s) => {
-                    var request = new XMLHttpRequest()
+                    var request = new XMLHttpRequest()                    
                     request.addEventListener("load", i => {
                         if(request.status === 200 ||request.status === 201){
-                            a(JSON.parse(request.response))
+                            if(request.response)
+                                a(JSON.parse(request.response))
                         } else {
                             s(i)
                         }
                     })
                     request.open(verb, path, true)
-                    if(data)
-                        request.send(JSON.stringify(data))
+                    //request.setRequestHeader("content-type", "application/json")
+                    if(data){                        
+                        //request.send(JSON.stringify(data))
+                        request.send(data)
+                    }
                     else
                         request.send()
                 })
@@ -55,6 +116,7 @@
                     .forEach(button => {
                         button.addEventListener("click", e => {
                             e.preventDefault()
+                            if(document.cookie != ""){
                             createRequest(`${path}/orders/additem?itemId=${button.dataset.itemid}&price=${button.dataset.price}`, "GET")
                                 .then(data => {
                                     createRequest(`${path}/orders/card`, "GET")
@@ -63,39 +125,95 @@
                                         })
                                 })
                                 .catch(data => {
-                                    console.warn(data)
+                                        addItemToLocalStorage({
+                                            itemId: button.dataset.itemid,
+                                            price: button.dataset.price
+                                        })
+                                        updateByLocalStorage(updateShoppingCart)
                                 })
+                            } else {
+                                addItemToLocalStorage({
+                                            itemId: button.dataset.itemid,
+                                            price: button.dataset.price
+                                        })
+                                        updateByLocalStorage(updateShoppingCart)
+                            }
 
                         })
                     })
             }
             window.addEventListener("load", e => {
                 updateShoppingCart(0)
+                var order = document.getElementById("order")
+                if(document.cookie != ""){
+                createRequest(`${path}/orders/card`, "GET")
+                    .then(data => {
+                        const items = getItemsInLocalStorage()
+                        if(items != null){
+                            if(items.length > 0) {
+                                const yesButton = document.getElementById("yesButton")
+                                const noButton = document.getElementById("noButton")
+                                const releaseHandlers = () => {
+                                    yesButton.removeEventListener("click", yesButtonFunc)
+                                    noButton.removeEventListener("click", noButtonFunc)
+                                    console.log("released..")
+                                }
+                                const yesButtonFunc = () => {
 
-                var order = document.getElementById("order");
-
-                createRequest(`${path}/orders/card`, "GET")                   
-                                .then(data => {
-                                    shoppingCard.innerHTML = `Shopping Card (${data.length})`;
-                                    shoppingCard.title = `you have ${data.length} ${data.length == 1 ? 'item' : 'items'} in your card`;
-                                })
-                // order.addEventListener("click", e => {
-                    
-                //     createRequest(`${path}/orders/additem?itemId=${2}&price=${9}`, "GET")                   
-                //         .then(data => {
-                //             createRequest(`${path}/orders/card`, "GET")                   
-                //                 .then(data => {
-                //                     shoppingCard.innerHTML = `Shopping Card (${data.length})`;
-                //                     shoppingCard.title = `you have ${data.length} ${data.length == 1 ? 'item' : 'items'} in your card`;
-                //                 })
-                //         })
-                //         .catch(data => {
-                //             console.warn(data)
-                //         })
-                    
-                // })
-
+                                    updates = []
+                                    items.forEach(item => {
+                                    const data = new FormData()
+                                    data.append("itemId", 1)
+                                    data.append("price", 20)
+                                    updates.push(createRequest(`${path}/orders/create`, "POST", data)
+                                        .then(data => {
+                                            console.log("success")
+                                        })
+                                        .catch(error => {
+                                            console.log(error)
+                                        })
+                                        )
+                                    })
+                                    Promise.all(updates)
+                                    .then(data => {
+                                        createRequest(`${path}/orders/card`, "GET")
+                                        .then(data => {
+                                            updateShoppingCart(data.length)
+                                            removeLocalStorage()
+                                            releaseHandlers()
+                                            popup.style.display = "none"
+                                        })
+                                        
+                                    })
+                                    
+                                }
+                                const noButtonFunc = () => {
+                                    releaseHandlers()
+                                    popup.style.display = "none"
+                                }
+                                
+                                yesButton.addEventListener("click", yesButtonFunc)
+                                noButton.addEventListener("click", noButtonFunc)
+                            itemWarning.innerHTML = `
+                            It seems there are already ${items.length} items that have been added prior to your login, do you like to add them to your basket now?
+                            `
+                            popup.style.display = "block"
+                            }
+                        }
+                        shoppingCard.innerHTML = `Shopping Card (${data.length})`;
+                        shoppingCard.title = `you have ${data.length} ${data.length == 1 ? 'item' : 'items'} in your card`;
+                    })
+                    .catch(error => {
+                        updateByLocalStorage(updateShoppingCart)        
+                    })
+                } else {
+                    updateByLocalStorage(updateShoppingCart)        
+                }
+                
                 initOrderbuttons()
+
+
+                
 
             })
         </script>

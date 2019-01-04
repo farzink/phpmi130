@@ -35,7 +35,7 @@ class AuthMiddleware implements IMiddlewareBase {
                     ];            
                 }               
             }
-            header("Location: {$this->loginRoute}");            
+            header("Location: {$this->loginRoute}?c={$router->getCurrentController()}&a={$router->getCurrentAction()}");            
             return [
                 "data" => "data",
                 "next" => false

@@ -28,7 +28,7 @@ class AuthenticationController extends BaseController
     {
         if ($type == "POST") {
             if (SigninHelper::signinWithEmailPassword($model->email, $model->password) == true) {
-                $this->redirect("home/index");
+                $this->redirect("{$model->c}/{$model->a}");// ("home/index");
             } else {
                 $this->addError("email", "wrong credentials");
             }
@@ -62,8 +62,8 @@ class AuthenticationController extends BaseController
                     $uid = $this->profileRepo->getByEmail($model->email)->id;
                     $emailToken = EmailTokenHelper::generate($model->email);
                     $html = new TagHelper();
-                    $link = $html->link("http://localhost:9000/phpmi130/authentication/verify?token=" . $emailToken, "verify");
-                    Mailer::send($model->email, "please verify your email address", $link);
+                    //$link = $html->link("http://localhost:9000/phpmi130/authentication/verify?token=" . $emailToken, "verify");
+                    //Mailer::send($model->email, "please verify your email address", $link);
                     if (SigninHelper::signin($uid)) {
                        $this->redirect("home/index");
                     } else {

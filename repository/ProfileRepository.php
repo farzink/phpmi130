@@ -60,6 +60,18 @@ class ProfileRepository
             return false;
         }
     }
+
+    public function update(ProfileModel $model)
+    {        
+        try {            
+            $query = "UPDATE profiles set firstname='{$model->firstname}', lastname='{$model->lastname}', phone='{$model->phone}' where email = '{$model->email}'";  
+            
+            $this->data->executeQuery($query);
+            return true;
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
     public function getByEmailToken($emailToken)
     {
         $query = "SELECT * FROM profiles where emailToken = '{$emailToken}'";

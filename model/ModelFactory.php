@@ -68,4 +68,12 @@ class ModelFactory {
         $orderModel->price = $model->price;
         return $orderModel;
     }
+    public static function ProfileViewModelToProfile($model){
+        $profile = new ProfileModel();        
+        $profile->firstname = $model->firstname;
+        $profile->lastname = $model->lastname;
+        $profile->phone = $model->phone;
+        $profile->email = $model->email;
+        return $profile;
+    }
 }

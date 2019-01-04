@@ -34,7 +34,7 @@ class BaseController {
         if($model != NULL)
             $model = array_merge($this->modelErrors, (array)$model, $auth);
         else
-            $model = $this->modelErrors;
+            $model = array_merge($this->modelErrors, $auth);
         echo($this->viewEngine->cook($controller, $action, $model));
     }
     protected function json($model = NULL, $httpStatus=BaseController::OK){

@@ -14,7 +14,7 @@
             <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-3 col-form-label">First Name</label>
                 <div class="col-sm-8">
-                    <input class="form-control" id="inputEmail3" placeholder="First Name" value="model:[firstname]">
+                    <input class="form-control" name="firstname" placeholder="First Name" value="model:[firstname]">
                     <!-- <span class="text-danger" v-if="!$v.firstname.maxLength">first name can not be more than 40 characters</span> -->
                 </div>
             </div>
@@ -22,7 +22,7 @@
             <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-3 col-form-label">Last Name</label>
                 <div class="col-sm-8">
-                    <input class="form-control" id="inputEmail3" placeholder="Last Name" value="model:[lastname]">
+                    <input class="form-control" name="lastname" placeholder="Last Name" value="model:[lastname]">
                     <!-- <span class="text-danger" v-if="!$v.lastname.maxLength">last name can not be more than 40 characters</span> -->
                 </div>
             </div>
@@ -32,7 +32,7 @@
              <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-3 col-form-label">Phone</label>
                 <div class="col-sm-8">
-                    <input class="form-control" id="inputEmail3" value="model:[phone]">
+                    <input class="form-control" name="phone" value="model:[phone]">
                 </div>
             </div>
 

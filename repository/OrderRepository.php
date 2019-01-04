@@ -37,9 +37,12 @@ class OrderRepository
     {
         try {
             $query = "INSERT INTO orders (profileId, itemId, price) VALUES ({$model->profileId}, {$model->itemId}, {$model->price})";            
-            return $this->data->executeQuery($query);            
+            return $this->data->executeQuery($query);                        
         } catch (Exception $ex) {
             return null;
         }
+    }
+    public function getLastId(){
+        return $this->data->executeCustomCommand("SELECT LAST_INSERT_ID()");
     }
 }

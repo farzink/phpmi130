@@ -19,6 +19,22 @@ class OrdersController extends BaseController {
         $this->profileRepo = new ProfileRepository($dataAccess);                
     }
 
+    
+    /**
+     * @param secure 
+     *  verb:[get]
+     * @return void
+     */
+    public function index(){
+        $this->addError("id", "");
+        //print_r(sizeof($this->itemsRepo->getAll()));
+        $this->view([
+            "id" => "fddgsfgf"
+        ]);        
+    }    
+
+
+
 
     /**
      * 
@@ -28,6 +44,24 @@ class OrdersController extends BaseController {
     public function addItem(OrderViewModel $model){
         if(!$this->isAuthorized())
             return;               
+        $profile = ($this->profileRepo->getById($this->getAuth()->profileid));
+        $model->profileId = $profile->id;
+    
+        $result = $this->orderRepo->add(ModelFactory::OrderItemViewModelToOrderItem($model));
+        if($result != null)
+            return $this->json($result, $this::CREATED);
+        return $this->status($this::BAD_REQUEST);
+    }
+
+
+    /**
+     * 
+     *  verb:[post]
+     * @return void
+     */
+    public function create(OrderViewModel $model){                
+        if(!$this->isAuthorized())
+            return;                      
         $profile = ($this->profileRepo->getById($this->getAuth()->profileid));
         $model->profileId = $profile->id;
     

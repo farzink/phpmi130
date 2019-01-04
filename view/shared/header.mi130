@@ -9,11 +9,11 @@
       <a class="nav-item nav-link" href="link:[profile/edit]">Profile</a>      
       <a class="nav-item nav-link right" href="#">Documentation</a>
     </ul>
+    <a id="shoppingCard" class="btn btn-success my-2 my-sm-0 m-2 text-white" href="link:[orders/index]">Shopping Card (0)</a>
     function:
   if(array_key_exists("isLoggedin", $model)){   
     if($model['isLoggedin'] == TRUE)
-    return '
-    <a id="shoppingCard" class="btn btn-success my-2 my-sm-0 m-2 text-white" href="link:[]">Shopping Card (0)</a>
+    return '    
     <a class="btn btn-outline-warning my-2 my-sm-0 m-2 text-dark" href="link:[authentication/logout]">Log out</a>';  
     if($model['isLoggedin'] == FALSE)
     {
@@ -38,6 +38,7 @@ function:
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
     <h1 class="display-3">Web Security MI130</h1>
+    <h1 class="display-5">Best Kiel Shop!</h1>
     <p class="lead">an overview of rudimentary security features of a web application to decrease the web application`s vulnerabilities.</p>
   </div>
 </div>
