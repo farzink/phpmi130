@@ -1,17 +1,15 @@
 <?php
-class ItemMigration {
-    public static $tableName = "items";
+class OrderHistoryMigration {
+    public static $tableName = "orderhistories";
     public static function migrate(){
-      $tableName = ItemMigration::$tableName;
+      $tableName = OrderHistoryMigration::$tableName;
       return 
       "CREATE TABLE {$tableName}
       (
         id int(11) NOT NULL AUTO_INCREMENT,
-        title varchar (45) DEFAULT NULL,
-        description varchar (512) DEFAULT NULL,
-        imageAddress varchar (512) DEFAULT NULL,
-        price INT default 0,
-        quantity INT default 0,
+        profileId int(11) NOT NULL,
+        total INT default 0,           
+        items INT default 0,
         creationdatetime datetime DEFAULT CURRENT_TIMESTAMP,
         updateddatetime datetime DEFAULT CURRENT_TIMESTAMP,
         PRIMARY KEY (id)        

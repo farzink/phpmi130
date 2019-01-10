@@ -12,6 +12,7 @@ require_once "AccountRemovalMigration.php";
 require_once "CSRFTokenMigration.php";
 require_once "ItemMigration.php";
 require_once "OrderMigration.php";
+require_once "OrderHistoryMigration.php";
 require_once('../../utility/AuthHelper.php');
 
 $u = "";
@@ -50,58 +51,58 @@ function seed(){
 
 function seedItems(){
     $dataAccess = new DataAccess();
-    $command = "INSERT INTO items (title, description, imageAddress, price) VALUES ('Monitor', 
+    $command = "INSERT INTO items (title, description, imageAddress, price, quantity) VALUES ('Monitor', 
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla rutrum sed enim id dictum. Maecenas ut erat nibh.', 
     'monitor.png', 
-    800)";
+    800, 2)";
     $dataAccess->executeCommand($command);
 
-    $command = "INSERT INTO items (title, description, imageAddress, price) VALUES ('Keyboard', 
+    $command = "INSERT INTO items (title, description, imageAddress, price, quantity) VALUES ('Keyboard', 
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla rutrum sed enim id dictum. Maecenas ut erat nibh.', 
     'keyboard.jpg', 
-    3400)";
+    100, 10)";
     $dataAccess->executeCommand($command);
 
-    $command = "INSERT INTO items (title, description, imageAddress, price) VALUES ('Mouse', 
+    $command = "INSERT INTO items (title, description, imageAddress, price, quantity) VALUES ('Mouse', 
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla rutrum sed enim id dictum. Maecenas ut erat nibh.',
     'mouse.jpg', 
-    25)";
+    25, 10)";
     $dataAccess->executeCommand($command);
 
-    $command = "INSERT INTO items (title, description, imageAddress, price) VALUES ('Speaker', 
+    $command = "INSERT INTO items (title, description, imageAddress, price, quantity) VALUES ('Speaker', 
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla rutrum sed enim id dictum. Maecenas ut erat nibh.', 
     'speaker.jpg', 
-    3400)";
+    125, 4)";
     $dataAccess->executeCommand($command);
 
-    $command = "INSERT INTO items (title, description, imageAddress, price) VALUES ('Headphone', 
+    $command = "INSERT INTO items (title, description, imageAddress, price, quantity) VALUES ('Headphone', 
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla rutrum sed enim id dictum. Maecenas ut erat nibh.', 
     'headphone.jpg', 
-    3400)";
+    40, 5)";
     $dataAccess->executeCommand($command);
 
-    $command = "INSERT INTO items (title, description, imageAddress, price) VALUES ('Laptop', 
+    $command = "INSERT INTO items (title, description, imageAddress, price, quantity) VALUES ('Laptop', 
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla rutrum sed enim id dictum. Maecenas ut erat nibh.', 
     'laptop.jpg', 
-    3400)";
+    1255, 1)";
     $dataAccess->executeCommand($command);
 
-    $command = "INSERT INTO items (title, description, imageAddress, price) VALUES ('Microphone', 
+    $command = "INSERT INTO items (title, description, imageAddress, price, quantity) VALUES ('Microphone', 
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla rutrum sed enim id dictum. Maecenas ut erat nibh.', 
     'microphone.jpg', 
-    3400)";
+    30, 5)";
     $dataAccess->executeCommand($command);
 
-    $command = "INSERT INTO items (title, description, imageAddress, price) VALUES ('Ram', 
+    $command = "INSERT INTO items (title, description, imageAddress, price, quantity) VALUES ('Ram', 
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla rutrum sed enim id dictum. Maecenas ut erat nibh.', 
     'ram.jpg', 
-    3400)";
+    200, 10)";
     $dataAccess->executeCommand($command);
 
-    $command = "INSERT INTO items (title, description, imageAddress, price) VALUES ('Cellphone', 
+    $command = "INSERT INTO items (title, description, imageAddress, price, quantity) VALUES ('Cellphone', 
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla rutrum sed enim id dictum. Maecenas ut erat nibh.', 
     'cellphone.jpg', 
-    3400)";
+    400, 4)";
     $dataAccess->executeCommand($command);
 
     
@@ -195,6 +196,14 @@ try {
 
     $command = OrderMigration::migrate();        
     $table = OrderMigration::$tableName;
+    if($dataAccess->executeCommand($command) == true) {
+        pl("{$counter}. {$table} table is susccessfully created.");
+        $counter++;
+    }
+
+
+    $command = OrderHistoryMigration::migrate();        
+    $table = OrderHistoryMigration::$tableName;
     if($dataAccess->executeCommand($command) == true) {
         pl("{$counter}. {$table} table is susccessfully created.");
         $counter++;

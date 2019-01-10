@@ -12,6 +12,7 @@ class ProfileMigration{
         email varchar(45) DEFAULT NULL,
         password varchar(250) DEFAULT NULL,
         phone varchar(45) DEFAULT NULL,
+        address varchar(250) DEFAULT NULL,
         extra INT DEFAULT 0,
         isActivated BIT DEFAULT 0,
         attempts INT DEFAULT 0,
