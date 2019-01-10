@@ -5,4 +5,5 @@
     public $lastname;
     public $phone;
     public $email;
+    public $address;
  }

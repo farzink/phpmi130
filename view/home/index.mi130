@@ -9,6 +9,8 @@
                         <img class='card-img-top' style='object-fit: scale-down; width: auto; height: 215px; padding: 9px' src='http://localhost:9000/phpmi130/resource/get?id={$item->imageAddress}' alt='Card image cap'>
                         <div class='card-body'>
                           <h5 class='card-title'>{$item->title}</h5>
+                          <p class='card-text'>Euro {$item->price}</p>
+                          <p class='card-text'>Qty {$item->quantity}</p>
                           <p class='card-text'>{$item->description}</p>
                           <a href='#' data-itemId='{$item->id}' data-price='{$item->price}' class='btn btn-primary order-button'>Add to card</a>
                         </div>
@@ -85,10 +87,13 @@
                     var request = new XMLHttpRequest()                    
                     request.addEventListener("load", i => {
                         if(request.status === 200 ||request.status === 201){
-                            if(request.response)
+                            if(request.response != null && request.response != "")
                                 a(JSON.parse(request.response))
+                            else {
+                                a(null)
+                            }
                         } else {
-                            s(i)
+                            s(request)
                         }
                     })
                     request.open(verb, path, true)
@@ -118,18 +123,34 @@
                             e.preventDefault()
                             if(document.cookie != ""){
                             createRequest(`${path}/orders/additem?itemId=${button.dataset.itemid}&price=${button.dataset.price}`, "GET")
-                                .then(data => {
+                                .then(itemData => {
                                     createRequest(`${path}/orders/card`, "GET")
                                         .then(data => {
-                                            updateShoppingCart(data.length)
+                                           updateShoppingCart(data.length)
+                                        })
+                                        .catch(error => {                                            
+                                            
                                         })
                                 })
-                                .catch(data => {
+                                .catch(error => {
+                                        if(error.status === 406){
+                                            const errorContainer = document.getElementById("error_container")
+                                            if(errorContainer){
+                                                errorContainer.innerHTML = "order can`t exceed available quantity"
+                                                errorContainer.style.display = "block"
+                                                window.setTimeout(() => {
+                                                    errorContainer.style.display = "none"
+                                                }, 5000)
+                                            }
+                                            //updateShoppingCart(data.length)
+                                        }
+                                        else {
                                         addItemToLocalStorage({
                                             itemId: button.dataset.itemid,
                                             price: button.dataset.price
                                         })
                                         updateByLocalStorage(updateShoppingCart)
+                                        }
                                 })
                             } else {
                                 addItemToLocalStorage({

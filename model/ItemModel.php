@@ -5,6 +5,7 @@ class ItemModel {
     public $description;
     public $imageAddress;
     public $price;    
+    public $quantity;    
     public $creationDateTime;
     public $updateDateTime;    
 }

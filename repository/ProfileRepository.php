@@ -64,7 +64,10 @@ class ProfileRepository
     public function update(ProfileModel $model)
     {        
         try {            
-            $query = "UPDATE profiles set firstname='{$model->firstname}', lastname='{$model->lastname}', phone='{$model->phone}' where email = '{$model->email}'";  
+            $query = "UPDATE profiles set firstname='{$model->firstname}', 
+            lastname='{$model->lastname}', 
+            phone='{$model->phone}', address='{$model->address}'
+             where email = '{$model->email}'";  
             
             $this->data->executeQuery($query);
             return true;

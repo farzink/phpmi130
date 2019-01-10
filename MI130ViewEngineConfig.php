@@ -2,6 +2,7 @@
 
 class MI130ViewEngineConfig {
     public static $bodyTag = "@@body";
+    public static $styleTag = "@@style";
     public static $headerTag = "@@header";
     public static $footerTag = "@@footer";
     public static $master = "/shared/master.mi130";

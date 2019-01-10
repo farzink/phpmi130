@@ -7,6 +7,7 @@ class ProfileModel {
     public $email;
     public $password;
     public $phone;
+    public $address;
     public $creationDateTime;
     public $updateDateTime;
     public $roleId;

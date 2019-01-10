@@ -1,5 +1,6 @@
 <?php
 
+require_once 'OrderValidationModel.php';
 
 
 class ModelFactory {
@@ -13,6 +14,7 @@ class ModelFactory {
         $profile->email = $raw["email"];
         $profile->password = $raw["password"];
         $profile->phone = $raw["phone"];
+        $profile->address = $raw["address"];
         $profile->creationDateTime = $raw["creationdatetime"];
         $profile->updateDateTime = $raw["updateddatetime"];        
         $profile->emailToken = $raw["emailToken"];        
@@ -46,6 +48,7 @@ class ModelFactory {
         $model->description = $raw["description"];
         $model->imageAddress = $raw["imageAddress"];
         $model->price = $raw["price"];
+        $model->quantity = $raw["quantity"];
         $model->creationDateTime = $raw["creationdatetime"];
         $model->updateDateTime = $raw["updateddatetime"];
         return $model;      
@@ -53,19 +56,24 @@ class ModelFactory {
     public static function rawToOrderModel($raw){
         $model = new OrderModel();
         $model->id = $raw["id"];
-        $model->profileId = $raw["profileId"];
+        //$model->profileId = $raw["profileId"];
         $model->itemId = $raw["itemId"];
         $model->price = $raw["price"];        
-        $model->creationDateTime = $raw["creationdatetime"];
-        $model->updateDateTime = $raw["updateddatetime"];
+        $model->title = $raw["title"];        
+        $model->imageAddress = $raw["imageAddress"];        
+        //$model->creationDateTime = $raw["creationdatetime"];
+        //$model->updateDateTime = $raw["updateddatetime"];
         return $model;      
     }
 
     public static function OrderItemViewModelToOrderItem($model){
         $orderModel = new OrderModel();
+        $orderModel->id = $model->id;
         $orderModel->profileId = $model->profileId;
         $orderModel->itemId = $model->itemId;
         $orderModel->price = $model->price;
+        //$orderModel->title = $model->title;
+        //$orderModel->imageAddress = $model->imageAddress;
         return $orderModel;
     }
     public static function ProfileViewModelToProfile($model){
@@ -74,6 +82,13 @@ class ModelFactory {
         $profile->lastname = $model->lastname;
         $profile->phone = $model->phone;
         $profile->email = $model->email;
+        $profile->address = $model->address;
         return $profile;
+    }
+    public static function rawToOrderValidationModel($raw){
+        $order = new OrderValidationModel();     
+        $order->count = $raw["count"];
+        $order->itemId = $raw["itemId"];                
+        return $order;
     }
 }

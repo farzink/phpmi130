@@ -16,6 +16,28 @@ class ProfileController extends BaseController {
         $dataAccess = new DataAccess();
         $this->profileRepo = new ProfileRepository($dataAccess);                
     }
+
+
+    /**
+     * @param secure
+     *  verb:[get]
+     * @return void
+     */
+    public function info(){
+        $profile = $this->profileRepo->getById($this->getAuth()->profileid);
+        return $this->json($profile, $this::OK);
+    }
+    /**
+     * @param secure
+     *  verb:[get]
+     * @return void
+     */
+    public function updateAddress(ProfileViewModel $model){
+        $profile = $this->profileRepo->getById($this->getAuth()->profileid);
+        $profile->address = $model->address;
+        $this->profileRepo->update(ModelFactory::ProfileViewModelToProfile($profile));
+        return $this->status($this::OK);
+    }
     
     /**
      * @param secure
@@ -34,6 +56,7 @@ class ProfileController extends BaseController {
             $model->firstname = $profile->firstname;
             $model->lastname = $profile->lastname;
             $model->phone = $profile->phone;
+            $model->address = $profile->address;
             
             $this->view($model);        
         }

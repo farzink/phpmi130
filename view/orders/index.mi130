@@ -1,75 +1,792 @@
-<div id="orderReview">
+<!--item -->
+<div id="step_1" style="display: none">
 
-    <div class="container">
+    <div id="orderReview">
 
-<div class="row">
-    <div class="col-8" style="background-color: #718686;
+        <div class="container">
+
+            <div class="row">
+                <div id=order-container class="col-8" style="background-color: #f3f3f3;
     border-radius: 4px;
     padding: 4px;
-    color: white;">
-        1
-    </div>
-    <div class="col-4">
-        <div style="background-color: #5e6067;
+    color: white;
+    overflow-y: auto;
+    max-height: 504px;">
+
+                </div>
+                <div class="col-4 total">
+                    <div style="background-color: #5e6067;
         border-radius: 6px;
         height: 100%;
         height: 440px;
         padding: 4px;
         color: white;
-        position: relative"
-        >
+        position: relative">
 
+                        <div style="padding: 12px;
+                    border: 1px double;">
+                            <div>
+                                <h4 style="color: #6fc31c">Total</h4>
+                                <h6 style="color: whitesmoke" class="total-price"></h6>
+                            </div>
+                            <div>
+                                <h4>Address</h4>
+                                <h6 class="total-address"></h6>
+                            </div>
+                            <div>
+                                <h4>Payment</h4>
+                                <h6 class="total-payment"></h6>
+                            </div>
+                        </div>
 
-        <div style="position: absolute;        
+                        <div style="position: absolute;        
         bottom: 12px;
         right: 12px">
-        <a href="#" style="width: 120px;" class="btn btn-success">next</a>
-    </div>
-    </div>
+                            <a id="toAddress" href="#" style="width: 120px;" class="btn btn-success">next</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>
 
-</div>
-</div>
 
 
 
+<!-- address -->
+<div id="step_2" style="display: none">
 
-
-
-
-<div id="addressReview"
-style="display: none">
+    <div id="addressReview">
 
         <div class="container">
-    
-    <div class="row">
-        <div class="col-8" style="background-color: #718686;
+
+            <div class="row">
+                <div id=address-container class="col-8" style="background-color: #f3f3f3;
         border-radius: 4px;
-        padding: 4px;
-        color: white;">
-            1
-        </div>
-        <div class="col-4">
-            <div style="background-color: #5e6067;
+        padding: 34px;
+        color: black;
+        overflow-y: auto;
+        max-height: 504px;">
+                    <form method="post">
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-3 col-form-label">Address</label>
+                            <div class="col-sm-8">
+                                <input id="addressInput" class="form-control" name="firstname" placeholder="address">
+                                <a id="updateAddress" href="#" style="width: 120px; margin: 12px" class="btn btn-success">update</a>
+                            </div>
+                        </div>
+
+
+
+                    </form>
+                </div>
+                <div class="col-4 total">
+                    <div style="background-color: #5e6067;
             border-radius: 6px;
             height: 100%;
             height: 440px;
             padding: 4px;
             color: white;
-            position: relative"
-            >
-    
-    
-            <div style="position: absolute;        
+            position: relative">
+
+                        <div style="padding: 12px;
+                    border: 1px double;">
+                            <div>
+                                <h4>Total</h4>
+                                <h6 class="total-price"></h6>
+                            </div>
+                            <div>
+                                <h4 style="color: #6fc31c">Address</h4>
+                                <h6 class="total-address" style="color: whitesmoke"></h6>
+                            </div>
+                            <div>
+                                <h4>Payment</h4>
+                                <h6 class="total-payment"></h6>
+                            </div>
+                        </div>
+
+                        <div style="position: absolute;        
             bottom: 12px;
             right: 12px">
-            <a href="#" style="width: 120px;" class="btn btn-success">next</a>
-        </div>
-        </div>
-        </div>
-    </div>
-    
-    </div>
-    </div>
+                            <a id="back_toItems" href="#" style="width: 120px;" class="btn btn-warning">previous</a>
+                            <a id="toPayment" href="#" style="width: 120px;" class="btn btn-success">next</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<!-- payment -->
+<div id="step_3" style="display: none">
+
+    <div id="addressReview">
+
+        <div class="container">
+
+            <div class="row">
+                <div id=address-container class="col-8" style="background-color: #f3f3f3;
+            border-radius: 4px;
+            padding: 4px;
+            color: white;
+            overflow-y: auto;
+            max-height: 504px;">
+
+
+                    <fieldset class="form-group row" style="color: black;
+           padding: 12px;">
+                        <h3 class="col-form-legend col">Payment Options</h3>
+
+                        <div style="margin:12px" class="col-sm-10">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input radio-payment" type="radio" name="gridRadios" id="gridRadios1"
+                                        value="3" checked>
+                                    None
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input radio-payment" type="radio" name="gridRadios" id="gridRadios1"
+                                        value="1">
+                                    Master Card
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input radio-payment" type="radio" name="gridRadios" id="gridRadios2"
+                                        value="2">
+                                    Paypal
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                </div>
+                <div class="col-4 total">
+                    <div style="background-color: #5e6067;
+                border-radius: 6px;
+                height: 100%;
+                height: 440px;
+                padding: 4px;
+                color: white;
+                position: relative">
+
+                        <div style="padding: 12px;
+                    border: 1px double;">
+                            <div>
+                                <h4>Total</h4>
+                                <h6 class="total-price"></h6>
+                            </div>
+                            <div>
+                                <h4>Address</h4>
+                                <h6 class="total-address"></h6>
+                            </div>
+                            <div>
+                                <h4 style="color: #6fc31c">Payment</h4>
+                                <h6 class="total-payment" style="color: whitesmoke"></h6>
+                            </div>
+                        </div>
+
+                        <div style="position: absolute;        
+                bottom: 12px;
+                right: 12px">
+                            <a id="back_toAddress" href="#" style="width: 120px;" class="btn btn-warning">previous</a>
+                            <a id="toConfirm" href="#" style="width: 120px;" class="btn btn-success">confirm</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- confirmation -->
+<div id="step_4" style="display: none">
+
+    <div id="confirmReview">
+
+        <div class="container">
+
+            <div class="row">
+                <div id=confirmation-container class="col-8" style="background-color: #f3f3f3;
+            border-radius: 4px;
+            padding: 4px;
+            color: white;
+            overflow-y: auto;
+            max-height: 504px;">
+
+                </div>
+                <div class="col-4 total">
+                    <div style="background-color: #5e6067;
+                border-radius: 6px;
+                height: 100%;
+                height: 440px;
+                padding: 4px;
+                color: white;
+                position: relative">
+
+
+                        <div style="position: absolute;        
+                bottom: 12px;
+                right: 12px">
+                            <!-- <a id="back_toPayment" href="#" style="width: 120px;" class="btn btn-warning">previous</a>
+                                <a id="toConfirm" href="#" style="width: 120px;" class="btn btn-success">next</a>                             -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<div id="step_5" style="display: none">
+
+    <div id="doneReview">
+
+        <div class="container">
+
+            <div class="row">
+                <div id=confirmation-container class="col-8" style="background-color: #f3f3f3;
+                border-radius: 4px;
+                padding: 4px;
+                color: white;
+                overflow-y: auto;
+                max-height: 504px;">
+
+                </div>
+                <div class="col-4 total">
+                    <div style="background-color: #5e6067;
+                    border-radius: 6px;
+                    height: 100%;
+                    height: 440px;
+                    padding: 4px;
+                    color: white;
+                    position: relative">
+
+
+                        <div style="position: absolute;        
+                    bottom: 12px;
+                    right: 12px">
+                            <!-- <a id="back_toPayment" href="#" style="width: 120px;" class="btn btn-warning">previous</a>
+                                    <a id="toConfirm" href="#" style="width: 120px;" class="btn btn-success">next</a>                             -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div id="popup" style="position: fixed; display: none;
+         width: 100%; height: 100%; top: 0; left: 0; z-index: 1000; background-color: #94948b91">
+            <div style="position: relative; width: 100%; height: 100%">
+                <div style="position: absolute; width: 400px; 
+                height: 200px; 
+                left: 50%; transform: translate(-50%, -50%);
+                top: 50%; 
+                background-color: #122523;
+                border-radius: 12px;
+                padding: 12px;
+                color: white">
+                <div style="position: relative; width: 100%; height: 100%">
+                <p id="itemWarning">
+                </p>                    
+                <button id="okButton" class="button" style="position: absolute; bottom: 2px; right: 12px; width: 120px; border: 0; color: white; border-radius: 3px; background-color: #298a29">Ok</button>
+                
+            </div>
+                </div>
+                
+            </div>
+        </div>
+
+
+
+
+<script>
+    const path = "/phpmi130"
+    const shoppingCard = document.getElementById("shoppingCard")
+    const step1 = document.getElementById("step_1")
+    const step2 = document.getElementById("step_2")
+    const step3 = document.getElementById("step_3")
+    const step4 = document.getElementById("step_4")
+    const step5 = document.getElementById("step_5")
+    const addressInput = document.getElementById("addressInput")
+    const backToItems = document.getElementById("back_toItems")
+    const backToAddress = document.getElementById("back_toAddress")
+    const orderContainer = document.getElementById("order-container")
+    const toAddress = document.getElementById("toAddress")
+    const toPayment = document.getElementById("toPayment")
+    const toConfirm = document.getElementById("toConfirm")
+    const backtoPayment = document.getElementById("back_toPayment")
+    const errorContainer = document.getElementById("error_container")
+    const totals = document.querySelectorAll(".total")
+    const total_prices = document.querySelectorAll(".total-price")
+    let PAYMENT_OPTION = 3
+
+    const popup = document.getElementById("popup")
+    const itemWarning = document.getElementById("itemWarning")
+
+    getPaymentDescription = option => {
+        if (option == 1) {
+            return "Master Card"
+        }
+        else if (option == 2) {
+            return "Paypal"
+        }
+        return "Not Selected"
+    }
+    const steps = [step1, step2, step3, step4, step5]
+    createRequest = (path, verb, data = null) => {
+        return new Promise((a, s) => {
+            var request = new XMLHttpRequest()
+            request.addEventListener("load", i => {
+                if (request.status === 200 || request.status === 201) {
+                    if (request.response && request.response != "")
+                        a(JSON.parse(request.response))
+                    else {
+                        a(null)
+                    }
+                } else {
+                    if (request.response && request.response != "") {
+                        s(request, JSON.parse(request.response))
+                    }
+                    else {
+                        s(request, null)
+                    }
+                }
+            })
+            request.open(verb, path, true)
+            //request.setRequestHeader("content-type", "application/json")
+            if (data) {
+                //request.send(JSON.stringify(data))
+                request.send(data)
+            }
+            else
+                request.send()
+        })
+    }
+
+
+    updateCard = () => {
+        createRequest(`${path}/orders/card`, "GET")
+            .then(data => {
+                shoppingCard.innerHTML = `Shopping Card (${data.length})`;
+                shoppingCard.title = `you have ${data.length} ${data.length == 1 ? 'item' : 'items'} in your card`;
+            })
+    }
+    showOrders = orders => {
+        const content = orders.map(orders => {
+            return {
+                id: orders[0].itemId,
+                itemId: orders[0].itemId,
+                price: orders[0].price,
+                quantity: orders.length,
+                title: orders[0].title
+            }
+        })
+            .map(order => {
+                return `<div class="order_row" style="position: relative; height: 100px;
+                border: 2px solid #2582ccab;
+                border-radius: 4px;
+                margin: 4px;
+                padding: 8px;
+                color: #3e3e3e;">
+                <h4>${order.title}</h4>
+                <h6 style="color: #404036">Euro ${order.price}</h6>
+                <div style="position: absolute; top: 2px; right: 12px;
+                text-align: center">
+                Quantity 
+                <span class="item_quantity"
+                >
+                ${order.quantity}
+                </span>
+                <div>
+                    <button class="button"
+                    class="increase" style="
+                    width: 28px;
+                    height: 28px;
+                    background-color: #359809;
+                    padding: 0;
+                    border-radius: 8px;
+                    color: white;
+                    font-size: 14px;
+                    text-align: center;
+                    border: 0;"
+                    data-action="add"
+                    data-itemid="${order.itemId}"
+                    data-price="${order.price}"
+                    data-orderid="${order.id}">+</button>
+                    
+                    
+                    <button class="button"
+                    class="decrease" style="
+                    width: 28px;
+                    height: 28px;
+                    background-color: #bf1a14;
+                    padding: 0;
+                    border-radius: 8px;
+                    color: white;
+                    font-size: 14px;
+                    text-align: center;
+                    border: 0;"
+                    data-action="remove"
+                    data-itemid="${order.itemId}"
+                    data-price="${order.price}"
+                    data-orderid="${order.id}"
+                    
+                    >-</button>                    
+
+                </div>
+                </div>
+                </div>`
+            })
+            .reduce((acc, val) => {
+                return acc + val
+            }, "")
+        orderContainer.innerHTML = content
+    }
+
+    changeQty = (item, behavior = false, extra = null) => {
+        if (behavior) {
+            createRequest(`${path}/orders/additem?itemId=${item.itemId}`, "GET")
+                .then(data => {
+                    createRequest(`${path}/orders/card`, "GET")
+                        .then(data => {
+                            updateCard()
+                            init()
+                            if (extra != null) {
+                                extra()
+                            }
+                        })
+                })
+                .catch((error, data) => {
+                    if (error.status === 406) {
+                        const errorContainer = document.getElementById("error_container")
+                        if (errorContainer) {
+                            errorContainer.innerHTML = "more than available"
+                            errorContainer.style.display = "block"
+                            window.setTimeout(() => {
+                                errorContainer.style.display = "none"
+                            }, 5000)
+                        }
+                    }
+                }
+                )
+
+        }
+        else {
+            createRequest(`${path}/orders/removeitem?itemId=${item.itemId}&id=${item.id}`, "DELETE")
+                .then(data => {
+                    createRequest(`${path}/orders/card`, "GET")
+                        .then(data => {
+                            updateCard()
+                            init()
+                            if (extra != null) {
+                                extra()
+                            }
+                        })
+                })
+        }
+    }
+
+    bindToAddress = () => {
+        toAddress.addEventListener("click", e => {
+            e.preventDefault()
+            createRequest(`${path}/orders/validateorder`, "GET")
+                .then(data => {
+                    showStep(step2)
+                })
+                .catch((error, data) => {
+                    if (error.status === 406) {
+                        const errorContainer = document.getElementById("error_container")
+                        if (errorContainer) {
+                            errorContainer.innerHTML = JSON.parse(error.response).error
+                            errorContainer.style.display = "block"
+                            window.setTimeout(() => {
+                                errorContainer.style.display = "none"
+                            }, 5000)
+                        }
+                    }
+                })
+        })
+    }
+    bindToPayment = () => {
+        backToAddress.addEventListener("click", e => {
+            e.preventDefault()
+            hideAll()
+            showStep(step2)
+        })
+    }
+    bindToItems = () => {
+        back_toItems.addEventListener("click", e => {
+            e.preventDefault()
+            hideAll()
+            showStep(step1)
+        })
+        toPayment.addEventListener("click", e => {
+            e.preventDefault()
+            hideAll()
+            showStep(step3)
+        })
+    }
+
+
+
+    bindOrderRow = () => {
+        document.querySelectorAll(".order_row")
+            .forEach(orderRow => {
+                const buttons = orderRow.getElementsByTagName("button")
+                const quantity = orderRow.getElementsByClassName("item_quantity")
+                for (let button of buttons) {
+                    if (button.dataset.action === "add") {
+                        button.addEventListener("click", e => {
+                            e.preventDefault()
+                            changeQty({
+                                itemId: button.dataset.itemid
+                            }, true, () => {
+                                calculateTotal(null, button.dataset.price)
+                            })
+                        })
+                    } else if (button.dataset.action === "remove") {
+                        button.addEventListener("click", e => {
+                            e.preventDefault()
+                            changeQty({
+                                itemId: button.dataset.itemid,
+                                id: button.dataset.orderid
+                            }, false, () => {
+                                calculateTotal(null, -button.dataset.price)
+                            })
+
+                        })
+                    }
+
+
+                }
+
+
+            })
+    }
+
+    hideAll = () => {
+        for (let step of steps) {
+            step.style.display = "none"
+        }
+    }
+    showStep = step => {
+        hideAll()
+        step.style.display = "block"
+    }
+
+    hideStep = step => {
+        hideAll()
+        step.style.display = "none"
+    }
+
+    fetchAddress = () => {
+        updateAddress.addEventListener("click", e => {
+            e.preventDefault()
+            const address = addressInput.value
+            const errorContainer = document.getElementById("error_container")
+            createRequest(`${path}/profile/updateaddress?address=${address}`, "GET")
+                .then(data => {
+                    //addressInput.value = data.address      
+                    _updateAddress(address)
+                    errorContainer.innerHTML = "address successfully updated"
+                    errorContainer.style.display = "block"
+                    errorContainer.style.backgroundColor = "rgb(83, 173, 110)"
+                    window.setTimeout(() => {
+                        errorContainer.style.display = "none"
+                        errorContainer.style.backgroundColor = "#790c21"
+                    }, 5000)
+                })
+                .catch((error, data) => {
+                    if (error.status === 406) {
+                        const errorContainer = document.getElementById("error_container")
+                        if (errorContainer) {
+                            errorContainer.innerHTML = "error happend, plase try again"
+                            errorContainer.style.display = "block"
+                            window.setTimeout(() => {
+                                errorContainer.style.display = "none"
+                                errorContainer.style.backgroundColor = "#790c21"
+                            }, 5000)
+                        }
+                    }
+                })
+
+        })
+        createRequest(`${path}/profile/info`, "GET")
+            .then(data => {
+                _updateAddress(data.address)
+                addressInput.value = data.address
+            })
+            .catch((error, data) => {
+                if (error.status === 406) {
+                    const errorContainer = document.getElementById("error_container")
+                    if (errorContainer) {
+                        errorContainer.innerHTML = JSON.parse(error.response).error
+                        errorContainer.style.display = "block"
+                        window.setTimeout(() => {
+                            errorContainer.style.display = "none"
+                        }, 5000)
+                    }
+                }
+            })
+    }
+    init = () => {
+        createRequest(`${path}/orders/card`, "GET")
+            .then(data => {
+                const items = data.reduce((acc, val, index, array) => {
+                    if (val !== undefined) {
+                        if (acc[val.itemId] !== undefined) {
+                            acc[val.itemId].push(val)
+                        }
+                        else {
+                            acc[val.itemId] = []
+                            acc[val.itemId].push(val)
+                        }
+                    }
+                    return acc
+                }, [])
+                showOrders(items)
+                calculateTotal(items, 0)
+                bindOrderRow()
+            })
+    }
+    calculateTotal = (orders = [], amount = 0) => {
+        if (amount === 0) {
+            const total = orders.map(orders => {
+                return {
+                    id: orders[0].itemId,
+                    itemId: orders[0].itemId,
+                    price: orders[0].price,
+                    quantity: orders.length,
+                    title: orders[0].title
+                }
+            })
+                .reduce((acc, order) => {
+                    return acc + parseFloat(order.price) * parseInt(order.quantity)
+                }, 0)
+
+            total_prices.forEach(item => {
+                item.innerText = `Euro ${total}`
+            })
+
+        }
+        else if (amount < 0) {
+            total_prices.forEach(item => {
+                //item.innerText = parseFloat(item.innerHTML) - amount
+            })
+        } else if (amount > 0) {
+            total_prices.forEach(item => {
+                // item.innerText = parseFloat(item.innerHTML) + amount
+            })
+        }
+    }
+    _updateAddress = address => {
+        document.querySelectorAll(".total-address")
+            .forEach(item => {
+                item.innerHTML = address
+            })
+    }
+    bindPaymentRadios = () => {
+        document.querySelectorAll(".radio-payment")
+            .forEach(item => {
+                item.addEventListener("change", e => {
+                    document.querySelectorAll(".total-payment")
+                        .forEach(item => {
+                            PAYMENT_OPTION = e.target.value
+                            item.innerHTML = getPaymentDescription(PAYMENT_OPTION)
+                        })
+                })
+            })
+        document.querySelectorAll(".total-payment")
+            .forEach(item => {                
+                item.innerHTML = getPaymentDescription(PAYMENT_OPTION)
+            })
+    }
+    bindConfirm = () => {
+        const okButton = document.getElementById("okButton")
+            document.getElementById("okButton")
+            .addEventListener("click", e => {
+                e.preventDefault()
+                window.location = "/phpmi130/home/index"
+            })
+        toConfirm.addEventListener("click", e => {
+            e.preventDefault()
+            if (PAYMENT_OPTION != 3) {
+                okButton.style.visibility ="hidden"
+                itemWarning.innerHTML = `
+                            order in process
+                            `
+                popup.style.display = "block"
+
+
+
+                createRequest(`${path}/orders/confirm`, "GET")
+            .then(data => {                
+                okButton.style.visibility ="visible"
+                
+                
+                })
+
+
+
+
+            } else {
+                const errorContainer = document.getElementById("error_container")
+                if (errorContainer) {
+                    errorContainer.innerHTML = "please select a payment option"
+                    errorContainer.style.display = "block"
+                    window.setTimeout(() => {
+                        errorContainer.style.display = "none"
+                    }, 5000)
+                }
+            }
+        })
+        
+}
+    window.addEventListener("load", e => {
+        updateCard()
+        init()
+        bindToAddress()
+        bindToItems()
+        showStep(step1)
+        fetchAddress()
+        bindToPayment()
+        bindPaymentRadios()
+        bindConfirm()
+    })
+</script>
+
+
+<!-- 
+document.querySelectorAll(".order-button")
+.forEach(button => {
+    button.addEventListener("click", e => {
+        e.preventDefault()
+        if(document.cookie != ""){
+        createRequest(`${path}/orders/additem?itemId=${button.dataset.itemid}&price=${button.dataset.price}`, "GET")
+            .then(data => {
+                createRequest(`${path}/orders/card`, "GET") -->

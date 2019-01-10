@@ -4,6 +4,6 @@ class OrderModel {
     public $profileId;
     public $itemId;
     public $price;    
-    public $creationDateTime;
-    public $updateDateTime;    
+    public $title;
+    public $imageAddress;    
 }

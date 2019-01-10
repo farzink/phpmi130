@@ -11,6 +11,7 @@ class BaseController {
     const BAD_REQUEST = 400;
     const UNAUTHORIZED = 401;
     const NOT_FOUND = 404;
+    const NOT_ACCEPTABLE = 406;
     const INTERNAL_SERVER_ERROR = 500;
 
     private $viewEngine;
@@ -42,6 +43,7 @@ class BaseController {
         echo json_encode($model);
     }
     protected function status($httpStatus=BaseController::OK){
+        ob_clean();
         http_response_code($httpStatus);        
     }
     protected function addError($key, $value){

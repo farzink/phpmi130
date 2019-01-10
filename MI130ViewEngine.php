@@ -26,7 +26,7 @@ class MI130ViewEngine {
         $this->content = str_replace($footerTag, $footerContent, $this->content);
     }
     function prepareStyles(){
-
+        //$this->content = str_replace($styleTag, $targetContent, $this->content);
     }
     function prepareJavaScripts() {
 
@@ -37,6 +37,7 @@ class MI130ViewEngine {
     function prepareBody($controller, $action, $model=NULL){
         try{
         $bodyTag = MI130ViewEngineConfig::$bodyTag;
+        $styleTag = MI130ViewEngineConfig::$styleTag;
         $controller = explode("Controller", $controller)[0]; 
         $targetPath = "{$this->viewPath}/{$controller}/{$action}.{$this->viewExtension}"; 
         
@@ -45,6 +46,9 @@ class MI130ViewEngine {
         //$this->modelInjector($targetContent, $model);        
         
         $this->content = str_replace($bodyTag, $targetContent, $this->content);
+
+        //for styles
+        //$this->content = str_replace($styleTag, $targetContent, $this->content);
         
         $this->modelInjector($model);        
         
@@ -84,6 +88,8 @@ class MI130ViewEngine {
         $this->runExecutables($model);
         
         $this->preparelinks();
+        
+        //$this->prepareStyles();
         //return $this->content;
         return $this->content;
         

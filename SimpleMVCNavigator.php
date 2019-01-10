@@ -96,7 +96,9 @@ class SimpleMVCNavigator
                 //$model = $this->convertToModel($_GET, $paramDefinition);
                 break;
             case "delete":
-                //$model = $this->convertToModel($_GET, $paramDefinition);
+            $model = $this->convertToModel([
+                "p" => $_POST,
+                "g" => $_GET], $paramDefinition);
                 break;
         }
         return $model;
