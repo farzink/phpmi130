@@ -184,8 +184,8 @@
                                     updates = []
                                     items.forEach(item => {
                                     const data = new FormData()
-                                    data.append("itemId", 1)
-                                    data.append("price", 20)
+                                    data.append("itemId", item.itemId)
+                                    data.append("price", parseInt(item.price))
                                     updates.push(createRequest(`${path}/orders/create`, "POST", data)
                                         .then(data => {
                                             console.log("success")

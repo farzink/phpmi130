@@ -73,6 +73,11 @@ class SimpleMVCNavigator
             $controller->$action();
         }
     }
+
+    public function scriptTagSanitier($content) {
+        $pattern = "<\/?[^>]*>";
+        return str_replace($pattern, $targetContent, $this->content);
+    }
     public function model($content, $paramDefinition)
     {
 

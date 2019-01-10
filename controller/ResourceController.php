@@ -18,8 +18,14 @@ class ResourceController extends BaseController {
         header("Content-Type: image/jpeg");
         //to download
         //header('Content-Disposition: attachment; filename="'.$model->id.'"');           
+        if(substr_count($address, '.') < 3 
+        && substr_count($address, '..') < 1
+        && substr_count($address, '/') < 4
+        && substr_count($address, '\\') < 1
+        && substr_count($address, '~') < 1){
         header('Content-length:'.filesize($address)); 
         readfile($address);
+        }
     }
     public function index(){
         echo "dsfasdfasdf";                  
