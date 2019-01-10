@@ -91,4 +91,59 @@ class OrderRepository
             return 0;
         }
     }
+
+    public function confirm($profileId){
+        try {
+            
+            $query = "SELECT sum(price) as price, count(id) as count FROM orders
+            where profileId = {$profileId}"; 
+            
+            $result = $this->data->executeQuery($query);
+            $price =0;
+            $count=0;
+
+            if ($result->num_rows > 0) {
+                 $row =  $result->fetch_assoc();                 
+                 $price = $row["price"];
+                 $count = $row["count"];                
+            
+            $query = "INSERT INTO orderhistories (profileId, total, items)
+            values ({$profileId},
+            {$count},
+            {$price})";
+            
+            $result = $this->data->executeQuery($query);                        
+
+            $query = "delete from orders where profileId ={$profileId}";
+            $result = $this->data->executeQuery($query);                        
+            return $result;
+            }
+            else {
+                return false;
+            }
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
+
+    
+
+    public function getHistory($profileId){
+        try {
+
+            $orders = array();
+        //$query = "SELECT * FROM orders where profileId = {$id}";        
+        $query = "select * from orderhistories";        
+        $result = $this->data->executeQuery($query);
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                array_push($orders, ModelFactory::rawToHistoryModel($row));
+            }
+        }
+        return $orders;
+            
+        } catch (Exception $ex) {
+            return false;
+        }
+    }
 }

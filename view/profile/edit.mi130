@@ -59,8 +59,11 @@
 
 
             <div class="form-group row">
-                <div class="col-sm-12 offset-md-3 col-md-6">
+                <div class="col-sm-12 offset-md-3 col-md-4">
                     <button type="submit" class="btn btn-primary" style="width: 10rem">Update</button>
+                </div>
+                <div class="col-sm-12 offset-md-1 col-md-4">
+                        <button id="historyBtn" type="submit" class="btn btn-warning" style="width: 10rem">Orders</button>
                 </div>
             </div>
 
@@ -68,8 +71,107 @@
         </form>
 
 
-
+        <div  class="row">
+                <div class="col-12"
+                style="min-height: 200px;
+        background-color: #3e3b3b;
+        border-radius: 12px;
+        padding: 20px;
+        color: whitesmoke;
+        display: none" id="history_review"></div>
+            </div>
 
         </div>
+        
     </div>
 </div>
+
+
+
+
+
+
+<script>
+const path = "/phpmi130"
+const review  = document.getElementById("history_review")
+
+const historyBtn = document.getElementById("historyBtn")
+createRequest =createRequest = (path, verb, data = null) => {
+        return new Promise((a, s) => {
+            var request = new XMLHttpRequest()
+            request.addEventListener("load", i => {
+                if (request.status === 200 || request.status === 201) {
+                    if (request.response && request.response != "")
+                        a(JSON.parse(request.response))
+                    else {
+                        a(null)
+                    }
+                } else {
+                    if (request.response && request.response != "") {
+                        s(request, JSON.parse(request.response))
+                    }
+                    else {
+                        s(request, null)
+                    }
+                }
+            })
+            request.open(verb, path, true)
+            
+            if (data) {
+            
+                request.send(data)
+            }
+            else
+                request.send()
+        })
+    }
+
+    init = () => {
+        historyBtn.addEventListener("click", e => {
+            e.preventDefault()
+            createRequest(`${path}/orders/history`, "GET")
+            .then(data => {
+                if(data.length > 0){
+                    review.innerHTML =  data
+                    .map(r => {
+                        return `<div style="border-bottom: 2px solid #aea531;
+                        width: 340px;">
+                        <p>Ordered on: ${r.creationDateTime}</p>
+                        <p>total: ${r.items} </p>
+                        <p>items: ${r.total}</p> 
+                        </div>
+                        `
+                    })
+                    .reduce((acc, i) => {
+                        return acc + i
+                    }, "")
+                    review.style.display="block"
+                }
+                else {
+                    const errorContainer = document.getElementById("error_container")
+                if (errorContainer) {
+                    errorContainer.innerHTML = "you have no order"
+                    errorContainer.style.display = "block"
+                    window.setTimeout(() => {
+                        errorContainer.style.display = "none"
+                    }, 5000)
+                }
+                }
+            })
+        })
+    }
+updateCard = () => {
+        createRequest(`${path}/orders/card`, "GET")
+            .then(data => {
+                shoppingCard.innerHTML = `Shopping Card (${data.length})`;
+                shoppingCard.title = `you have ${data.length} ${data.length == 1 ? 'item' : 'items'} in your card`;
+            })
+    }
+
+window.addEventListener("load", e => {
+    updateCard()
+    init()
+})
+
+
+</script>

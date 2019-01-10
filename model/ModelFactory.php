@@ -1,6 +1,7 @@
 <?php
 
 require_once 'OrderValidationModel.php';
+require_once 'OrderHistoryModel.php';
 
 
 class ModelFactory {
@@ -91,4 +92,18 @@ class ModelFactory {
         $order->itemId = $raw["itemId"];                
         return $order;
     }
+    public static function rawToHistoryModel($raw){
+        $model = new OrderHistoryModel();
+        $model->id = $raw["id"];
+        $model->profileId = $raw["profileId"];
+        $model->total = $raw["total"];
+        $model->items = $raw["items"];                
+        $model->creationDateTime = $raw["creationdatetime"];
+        $model->updateDateTime = $raw["updateddatetime"];
+        return $model;      
+    }
 }
+
+
+
+

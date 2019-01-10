@@ -311,7 +311,7 @@
                 padding: 12px;
                 color: white">
                 <div style="position: relative; width: 100%; height: 100%">
-                <p id="itemWarning">
+                <p id="_itemwarning">
                 </p>                    
                 <button id="okButton" class="button" style="position: absolute; bottom: 2px; right: 12px; width: 120px; border: 0; color: white; border-radius: 3px; background-color: #298a29">Ok</button>
                 
@@ -346,7 +346,7 @@
     let PAYMENT_OPTION = 3
 
     const popup = document.getElementById("popup")
-    const itemWarning = document.getElementById("itemWarning")
+    const _itemwarning = document.getElementById("_itemwarning")
 
     getPaymentDescription = option => {
         if (option == 1) {
@@ -358,7 +358,7 @@
         return "Not Selected"
     }
     const steps = [step1, step2, step3, step4, step5]
-    createRequest = (path, verb, data = null) => {
+    createRequest =createRequest = (path, verb, data = null) => {
         return new Promise((a, s) => {
             var request = new XMLHttpRequest()
             request.addEventListener("load", i => {
@@ -737,7 +737,7 @@
             e.preventDefault()
             if (PAYMENT_OPTION != 3) {
                 okButton.style.visibility ="hidden"
-                itemWarning.innerHTML = `
+                _itemwarning.innerHTML = `
                             order in process
                             `
                 popup.style.display = "block"
@@ -745,10 +745,20 @@
 
 
                 createRequest(`${path}/orders/confirm`, "GET")
-            .then(data => {                
+                .then(data => {                
+                    _itemwarning.innerHTML = `
+                            order is placed successfully
+                            `
+                
                 okButton.style.visibility ="visible"
                 
                 
+                })
+                .catch(error => {
+                    okButton.style.visibility ="visible"
+                    _itemwarning.innerHTML = `
+                            order is placed successfully
+                            `
                 })
 
 

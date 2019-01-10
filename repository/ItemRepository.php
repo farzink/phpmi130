@@ -32,4 +32,14 @@ public function __construct($data)
             return null;
         }
     }
+
+
+    public function changeItemQuantity($itemId, $amount){
+        $item= $this->getById($itemId);
+        $item->quantity += $amount;
+        $query = "update items set quantity={$item->quantity}
+        where id = {$itemId}";
+        echo($query);
+        $result = $this->data->executeQuery($query);
+    }
 }

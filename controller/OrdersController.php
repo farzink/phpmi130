@@ -40,7 +40,7 @@ class OrdersController extends BaseController {
 
 
     /**
-     * 
+     * @param secure 
      *  verb:[get]
      * @return void
      */
@@ -73,7 +73,7 @@ class OrdersController extends BaseController {
     }
 
     /**
-     * 
+     * @param secure 
      *  verb:[delete]
      * @return void
      */
@@ -107,6 +107,51 @@ class OrdersController extends BaseController {
         if($result != null)
             return $this->json($result, $this::CREATED);
         return $this->status($this::BAD_REQUEST);
+    }
+
+
+    /**
+     * @param secure 
+     *  verb:[get]
+     * @return void
+     */
+    public function confirm(){                
+        try{
+        if(!$this->isAuthorized())
+            return;                      
+        $profile = ($this->profileRepo->getById($this->getAuth()->profileid));
+        
+    
+        $orders = $this->orderRepo->getGroupedOrderByProfileId($profile->id);
+        
+        foreach($orders as $count => $item){
+            $itm = $this->itemRepo->getById($item->itemId);
+            
+            if($item->count > $itm->quantity){
+                return $this->json([ "error" =>
+                "{$itm->title} more than available quantity, please decrease the quantity (max avilable: {$itm->quantity})"],
+                $this::NOT_ACCEPTABLE);
+            }
+        }
+
+
+        foreach($orders as $count => $item){
+            $itm = $this->itemRepo->getById($item->itemId);
+            
+            $this->itemRepo->changeItemQuantity($item->itemId, -1);
+        }
+
+        $result = $this->orderRepo->confirm($profile->id);
+        if($result)
+            return $this->status($this::ACCEPTED);
+        else
+            return $this->status($this::BAD_REQUEST);
+
+        }
+        catch(Exceptionm $ex){
+          return $this->status($this::BAD_REQUEST);
+        }
+
     }
 
 
@@ -144,6 +189,24 @@ class OrdersController extends BaseController {
             }
         }      
         return $this->status($this::OK);
+         
+        
+    }
+
+
+
+     /**
+     * 
+     *  verb:[get]
+     * @return void
+     */
+    public function history(){                
+        if(!$this->isAuthorized())
+            return;                      
+        $profile = ($this->profileRepo->getById($this->getAuth()->profileid));        
+    
+        $histories = $this->orderRepo->getHistory($profile->id);        
+        return $this->json($histories, $this::OK);
          
         
     }
